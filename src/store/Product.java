@@ -8,7 +8,7 @@ public abstract class Product {
     private String size;
     private String color;
 
-    public Product(String name, String brand, double price, int quantity, SizeEnum size, ColorEnum color) {
+    public Product(String name, String brand, double price, int quantity, String size, String color) {
         this.name = name;
         this.brand = brand;
         this.price = price;
