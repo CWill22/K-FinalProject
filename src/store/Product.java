@@ -39,11 +39,11 @@ public abstract class Product {
         this.quantity = quantity;
     }
 
-    public SizeEnum getSize() {
+    public String getSize() {
         return size;
     }
 
-    public ColorEnum getColor() {
+    public String getColor() {
         return color;
     }
 }
