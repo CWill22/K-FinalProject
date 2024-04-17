@@ -1,9 +1,35 @@
 <?xml version="1.0" ?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
-  
-  <Product>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- Definition of the Product element -->
+  <xs:element name="Product">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Name" type="xs:string"/>
+        <xs:element name="Type" type="xs:string"/>
+        <xs:element name="Brand" type="xs:string"/>
+        <xs:element name="Color" type="xs:string"/>
+        <xs:element name="Size" type="xs:string"/>
+        <xs:element name="Material" type="xs:string"/>
+        <xs:element name="Gender" type="xs:string"/>
+        <xs:element name="Price" type="xs:decimal"/>
+        <xs:element name="QuantityInStock" type="xs:integer"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition of the root element that contains multiple Product elements -->
+  <xs:element name="project">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Product" type="xs:Product" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+<Product>
     
     
     <Name>Mizzou Short</Name>
