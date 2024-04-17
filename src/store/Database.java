@@ -3,7 +3,15 @@ package store;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory; // Add this import statement
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+
 
 
 
@@ -41,9 +49,42 @@ public class Database {
                     double price = Double.parseDouble(element.getElementsByTagName("Price").item(0).getTextContent());
                     int quantity = Integer.parseInt(element.getElementsByTagName("QuantityInStock").item(0).getTextContent());
 
-                    // Create a new product and add it to the database
-                    Product product = new Product(name, type, brand, color, size, material, gender, price, quantity);
-                    productList.add(product);
+                    // Create a new product, using the subclass contructer for its type,  and add it to the store
+                   //Product product = new Product(name, brand, color, size, material, gender, price, quantity);
+                    //Product product = (name, brand, price,quantity, size, color, material, gender)
+                    
+                    if(type.equals("Crewneck")) {
+                        Product product = new Crewneck(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
+                        Material.valueOf(material), Gender.valueOf(gender));
+						productList.add(product);
+                    }
+                    else if(type.equals("TShirt")) {
+                    	Product product = new TShirt(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
+                                Material.valueOf(material), Gender.valueOf(gender));
+						productList.add(product);
+                    }
+                    else if(type.equals("Short")) {
+                    	Product product = new Short(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
+                                Material.valueOf(material), Gender.valueOf(gender));
+						productList.add(product);
+                    }
+                    else if(type.equals("Sock")) {
+                    	Product product = new Sock(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
+                                Material.valueOf(material), Gender.valueOf(gender));
+                        productList.add(product);	
+                    }
+                    else if(type.equals("Sweatshirt")) {
+                    	Product product = new Sweatshirt(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
+                                Material.valueOf(material), Gender.valueOf(gender));
+                        productList.add(product);
+                    }
+                    else if(type.equals("Sweatpant")) {
+                    	Product product = new Sock(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
+                                Material.valueOf(material), Gender.valueOf(gender));
+                        productList.add(product);
+                    }
+                    
+                    
                 }
             }
         } catch (Exception e) {
