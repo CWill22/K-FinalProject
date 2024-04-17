@@ -148,7 +148,23 @@ public class Database {
     public void deleteProduct(String productId) {
         productList.removeIf(product -> product.getName().equals(productId));
     }
-
     
-}
+    public void processOrder(String productId, int quantity) {
+    	for (Product product : productList) {
+    		if (product.getName().equals(productId)) {
+    			
+    			if (product.getQuantity() >= quantity) {
+    				
+    				product.setQuantity(product.getQuantity() - quantity);
+    				System.out.println("Order processed successfully for " + quantity + " " + productId);
+    			} else {
+    				System.out.println("Insufficient quantity in stock for " + productId);
+    			}
+    			return;
+    		}
+    	}
+    	System.out.println("Product not found: " + productId);
+    }
+
+   
 
