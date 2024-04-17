@@ -1,4 +1,5 @@
 package store;
+
 public abstract class Product {
     protected String name;
     protected String brand;
@@ -6,19 +7,18 @@ public abstract class Product {
     protected int quantity;
     protected String size;
     protected String color;
+    protected Gender gender;
+    protected Material material;
 
-    public Product(String name, String brand, double price, int quantity, String size, String color) {
+    public Product(String name, String brand, double price, int quantity, String size, String color, Material material, Gender gender) {
         this.name = name;
         this.brand = brand;
         this.price = price;
         this.quantity = quantity;
         this.size = size;
         this.color = color;
-    }
-
-    public Product(String name2, String brand2, String color2, String size2, String material, String gender,
-            double price2, int quantity2) {
-        //TODO Auto-generated constructor stub
+        this.material = material;
+        this.gender = gender;
     }
 
     public abstract void displayDetails();
@@ -58,5 +58,17 @@ public abstract class Product {
     }
     public void setColor(String color) {
         this.color = color;
+    }
+    public Gender getGender() {
+        return gender;
+    }
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+    public Material getMaterial() {
+        return material;
+    }
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 }

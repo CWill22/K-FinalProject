@@ -5,9 +5,5 @@ public class Crewneck extends Product {
         super(name, brand, color, size, material, gender, price, quantity);
     }
 
-    @Override
-    public void displayDetails() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayDetails'");
-    }
+   
 }
