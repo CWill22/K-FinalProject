@@ -1,0 +1,625 @@
+<?xml version="1.0" ?>
+<Products>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Short</Name>
+    
+    
+    <Type>Short</Type>
+    
+    
+    <Brand>New Era</Brand>
+    
+    
+    <Color>White</Color>
+    
+    
+    <Size>XL</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>36</Price>
+    
+  
+    <QuantityInStock>13</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou TShirt</Name>
+    
+    
+    <Type>TShirt</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>Gold</Color>
+    
+    
+    <Size>S</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>54</Price>
+    
+  
+    <QuantityInStock>97</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatpant</Name>
+    
+    
+    <Type>Sweatpant</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>White</Color>
+    
+    
+    <Size>XS</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Men</Gender>
+    
+    
+    <Price>51</Price>
+    
+  
+    <QuantityInStock>20</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatshirt</Name>
+    
+    
+    <Type>Sweatshirt</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>Black</Color>
+    
+    
+    <Size>S</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>35</Price>
+    
+  
+    <QuantityInStock>93</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou TShirt</Name>
+    
+    
+    <Type>TShirt</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>White</Color>
+    
+    
+    <Size>L</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>22</Price>
+    
+  
+    <QuantityInStock>20</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sock</Name>
+    
+    
+    <Type>Sock</Type>
+    
+    
+    <Brand>New Era</Brand>
+    
+    
+    <Color>White</Color>
+    
+    
+    <Size>XS</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Men</Gender>
+    
+    
+    <Price>17</Price>
+    
+  
+    <QuantityInStock>22</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Crewneck</Name>
+    
+    
+    <Type>Crewneck</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>Black</Color>
+    
+    
+    <Size>XXL</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>16</Price>
+    
+  
+    <QuantityInStock>18</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Crewneck</Name>
+    
+    
+    <Type>Crewneck</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>Gold</Color>
+    
+    
+    <Size>Adjustable</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>20</Price>
+    
+  
+    <QuantityInStock>21</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatshirt</Name>
+    
+    
+    <Type>Sweatshirt</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>Black and Gold</Color>
+    
+    
+    <Size>M</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Men</Gender>
+    
+    
+    <Price>57</Price>
+    
+  
+    <QuantityInStock>85</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou TShirt</Name>
+    
+    
+    <Type>TShirt</Type>
+    
+    
+    <Brand>Adidas</Brand>
+    
+    
+    <Color>Black</Color>
+    
+    
+    <Size>XXL</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>31</Price>
+    
+  
+    <QuantityInStock>47</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatpant</Name>
+    
+    
+    <Type>Sweatpant</Type>
+    
+    
+    <Brand>Puma</Brand>
+    
+    
+    <Color>Black and Gold</Color>
+    
+    
+    <Size>Adjustable</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>18</Price>
+    
+  
+    <QuantityInStock>57</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Crewneck</Name>
+    
+    
+    <Type>Crewneck</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>White</Color>
+    
+    
+    <Size>L</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>21</Price>
+    
+  
+    <QuantityInStock>24</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Short</Name>
+    
+    
+    <Type>Short</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>Gold</Color>
+    
+    
+    <Size>XL</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Men</Gender>
+    
+    
+    <Price>59</Price>
+    
+  
+    <QuantityInStock>39</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Crewneck</Name>
+    
+    
+    <Type>Crewneck</Type>
+    
+    
+    <Brand>New Era</Brand>
+    
+    
+    <Color>Black</Color>
+    
+    
+    <Size>M</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>39</Price>
+    
+  
+    <QuantityInStock>14</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sock</Name>
+    
+    
+    <Type>Sock</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>Black and Gold</Color>
+    
+    
+    <Size>One Size</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>17</Price>
+    
+  
+    <QuantityInStock>15</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatshirt</Name>
+    
+    
+    <Type>Sweatshirt</Type>
+    
+    
+    <Brand>New Era</Brand>
+    
+    
+    <Color>White</Color>
+    
+    
+    <Size>One Size</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>57</Price>
+    
+  
+    <QuantityInStock>70</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatshirt</Name>
+    
+    
+    <Type>Sweatshirt</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>Black and Gold</Color>
+    
+    
+    <Size>L</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>53</Price>
+    
+  
+    <QuantityInStock>68</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sock</Name>
+    
+    
+    <Type>Sock</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>Gold</Color>
+    
+    
+    <Size>XXL</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>25</Price>
+    
+  
+    <QuantityInStock>92</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sweatshirt</Name>
+    
+    
+    <Type>Sweatshirt</Type>
+    
+    
+    <Brand>Under Armour</Brand>
+    
+    
+    <Color>Black and Gold</Color>
+    
+    
+    <Size>XXL</Size>
+    
+    
+    <Material>Cotton</Material>
+    
+    
+    <Gender>Women</Gender>
+    
+    
+    <Price>32</Price>
+    
+  
+    <QuantityInStock>61</QuantityInStock>
+  </Product>
+  
+  
+  <Product>
+    
+    
+    <Name>Mizzou Sock</Name>
+    
+    
+    <Type>Sock</Type>
+    
+    
+    <Brand>Nike</Brand>
+    
+    
+    <Color>Black and Gold</Color>
+    
+    
+    <Size>L</Size>
+    
+    
+    <Material>Polyester</Material>
+    
+    
+    <Gender>Unisex</Gender>
+    
+    
+    <Price>39</Price>
+    
+  
+    <QuantityInStock>38</QuantityInStock>
+  </Product>
+  
+
+</Products>
