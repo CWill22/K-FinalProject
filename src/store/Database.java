@@ -140,5 +140,15 @@ public class Database {
                 product.getMaterial().equals(filterCriteria.getMaterial()) &&
                 product.getGender().equals(filterCriteria.getGender());
     }
+
+    public void createProduct(Product productData) {
+	    productList.add(productData);
+    }
+
+    public void deleteProduct(String productId) {
+        productList.removeIf(product -> product.getName().equals(productId));
+    }
+
+    
 }
 
