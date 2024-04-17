@@ -1,5 +1,103 @@
 package store;
 
-public class Database {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.parsers.DocumentBuilderFactory; // Add this import statement
 
+
+
+public class Database {
+    private List<Product> productList; // Database to store products
+
+    // Constructor to initialize the database
+    public Database() {
+        this.productList = new ArrayList<>();
+    }
+
+    // Initialize the database or data files like XML or JSON
+    public void initializeDatabase() {
+        try {
+            // Load XML file
+            File xmlFile = new File("clothinginventory.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+
+            // Extract product information from XML and add to the database
+            NodeList nodeList = doc.getElementsByTagName("Product");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    String name = element.getElementsByTagName("Name").item(0).getTextContent();
+                    String type = element.getElementsByTagName("Type").item(0).getTextContent();
+                    String brand = element.getElementsByTagName("Brand").item(0).getTextContent();
+                    String color = element.getElementsByTagName("Color").item(0).getTextContent();
+                    String size = element.getElementsByTagName("Size").item(0).getTextContent();
+                    String material = element.getElementsByTagName("Material").item(0).getTextContent();
+                    String gender = element.getElementsByTagName("Gender").item(0).getTextContent();
+                    double price = Double.parseDouble(element.getElementsByTagName("Price").item(0).getTextContent());
+                    int quantity = Integer.parseInt(element.getElementsByTagName("QuantityInStock").item(0).getTextContent());
+
+                    // Create a new product and add it to the database
+                    Product product = new Product(name, type, brand, color, size, material, gender, price, quantity);
+                    productList.add(product);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Adds a new product record to the database or data file
+    public void insertProduct(Product productData) {
+        productList.add(productData);
+    }
+
+    // Updates an existing product’s data
+    public void updateProduct(String productId, Product newData) {
+        for (Product product : productList) {
+            if (product.getName().equals(productId)) {
+                // Update the product's data
+                product.setName(newData.getName());
+                product.setBrand(newData.getBrand());
+                product.setPrice(newData.getPrice());
+                product.setQuantity(newData.getQuantity());
+                product.setSize(newData.getSize());
+                product.setColor(newData.getColor());
+                product.setMaterial(newData.getMaterial());
+                product.setGender(newData.getGender());
+                break; // Exit loop after updating the product
+            }
+        }
+    }
+
+    // Safely deletes a product record from the storage system
+    public void removeProduct(String productId) {
+        productList.removeIf(product -> product.getName().equals(productId));
+    }
+
+    // Retrieves products based on specific search criteria
+    public List<Product> findProducts(Product filterCriteria) {
+        List<Product> foundProducts = new ArrayList<>();
+        for (Product product : productList) {
+            // Check if the product matches the filter criteria
+            if (matchesCriteria(product, filterCriteria)) {
+                foundProducts.add(product);
+            }
+        }
+        return foundProducts;
+    }
+
+    // Helper method to check if a product matches the filter criteria
+    private boolean matchesCriteria(Product product, Product filterCriteria) {
+        return product.getBrand().equals(filterCriteria.getBrand()) &&
+                product.getColor().equals(filterCriteria.getColor()) &&
+                product.getSize().equals(filterCriteria.getSize()) &&
+                product.getMaterial().equals(filterCriteria.getMaterial()) &&
+                product.getGender().equals(filterCriteria.getGender());
+    }
 }
+
