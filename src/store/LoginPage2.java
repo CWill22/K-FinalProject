@@ -93,6 +93,9 @@ public class LoginPage2 {
 		JButton btnNewButton = new JButton("Log In");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//login to the system using the validateCredientials method from the Customer class
+				Customer c = new Customer(formattedTextField.getText(), passwordField.getText());
+				c.validateLoginCredentials(formattedTextField.getText(), passwordField.getText());
 			}
 		});
 		

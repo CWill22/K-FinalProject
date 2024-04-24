@@ -28,7 +28,9 @@ public class Customer {
 	*/
 	
 	//validate password
-	public boolean validateLoginCredentials(String password) {
+	public boolean validateLoginCredentials(String username, String password) {
+	//print username
+		System.out.println("Trying to login to Username: " + this.username);
 		return this.password.equals(password);
 	}
 
