@@ -37,4 +37,5 @@ public class Customer {
 		this.username = null;
 		this.password = null;
 	}
+	
 }
