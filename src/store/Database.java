@@ -170,6 +170,10 @@ public class Database {
     	}
     }
     
+    public List<Product> listProducts() {
+    	return productList;
+    }
+    
     
     public void processOrder(String productId, int quantity) {
     	for (Product product : productList) {
