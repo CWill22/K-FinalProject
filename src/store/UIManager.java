@@ -71,6 +71,7 @@ public class UIManager extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Handle logout button click
                 logout();
+                dispose();
             }
         });
 
@@ -110,7 +111,13 @@ public class UIManager extends JFrame {
 
     // Method to process an order
     private void processOrder() {
-        // Implementation for processing an order
+    	JFrame processOrderFrame = new JFrame("processOrder");
+        // Add components for updating an existing product
+        // Example: JTextFields, JLabels, JButtons, etc.
+        // Example: updateProductFrame.add(new JLabel("Product ID"));
+        // Example: updateProductFrame.add(new JTextField());
+        processOrderFrame.setSize(300, 200);
+        processOrderFrame.setVisible(true);
     }
 
     // Method to logout
