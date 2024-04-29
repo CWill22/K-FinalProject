@@ -16,28 +16,34 @@ public class UIManager extends JFrame {
     public UIManager() {
         setTitle("Mizzou Clothing Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 500);
-        setLayout(new BorderLayout());
+        setSize(866, 500);
+        getContentPane().setLayout(new BorderLayout());
 
         // Create the login panel
         createLoginPanel();
 
         // Add login panel to the frame
-        add(loginPanel, BorderLayout.CENTER);
+        getContentPane().add(loginPanel, BorderLayout.CENTER);
 
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     private void createLoginPanel() {
-        loginPanel = new JPanel(new GridLayout(3, 2));
+        loginPanel = new JPanel(new GridLayout(0, 1));
         usernameField = new JTextField();
+        usernameField.setHorizontalAlignment(SwingConstants.CENTER);
         passwordField = new JPasswordField();
+        passwordField.setHorizontalAlignment(SwingConstants.CENTER);
         JButton loginButton = new JButton("Login");
 
-        loginPanel.add(new JLabel("Username:"));
+        JLabel label = new JLabel("Username: ");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        loginPanel.add(label);
         loginPanel.add(usernameField);
-        loginPanel.add(new JLabel("Password:"));
+        JLabel label_1 = new JLabel("Password: ");
+        label_1.setHorizontalAlignment(SwingConstants.CENTER);
+        loginPanel.add(label_1);
         loginPanel.add(passwordField);
         loginPanel.add(new JLabel()); // Placeholder for empty cell
         loginPanel.add(loginButton);
@@ -72,7 +78,7 @@ public class UIManager extends JFrame {
         
         // Create and add main panel
         JPanel mainPanel = createMainPanel();
-        add(mainPanel, BorderLayout.CENTER);
+        getContentPane().add(mainPanel, BorderLayout.CENTER);
 
         // Repaint the frame
         revalidate();
@@ -82,110 +88,64 @@ public class UIManager extends JFrame {
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel(new GridLayout(5, 1));
 
-        JButton addButton = new JButton("Add Product");
-        JButton listButton = new JButton("List Products");
-        JButton updateButton = new JButton("Update Product");
-        JButton processOrderButton = new JButton("Process Order");
-        JButton logoutButton = new JButton("Logout");
-        
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openAddProductFrame();
-            }
-        });
-
-        listButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openListProductsFrame();
-            }
-        });
-
-        updateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openUpdateProductFrame();
-            }
-        });
-
-        processOrderButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openProcessOrderFrame();
-            }
-        });
-
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                logout();
-                dispose();
-            }
-        });
-
-        mainPanel.add(addButton);
-        mainPanel.add(listButton);
-        mainPanel.add(updateButton);
-        mainPanel.add(processOrderButton);
-        mainPanel.add(logoutButton);
-
-        // Add action listeners for main panel buttons
+        // Add buttons to main panel
+        mainPanel.add(createButton("Add Product", this::openAddProductFrame));
+        mainPanel.add(createButton("List Products", this::openListProductsFrame));
+        mainPanel.add(createButton("Update Product", this::openUpdateProductFrame));
+        mainPanel.add(createButton("Process Order", this::openProcessOrderFrame));
+        mainPanel.add(createButton("Logout", this::logout));
 
         return mainPanel;
     }
-    
-    private void openAddProductFrame() {
+
+    private JButton createButton(String text, ActionListener actionListener) {
+        JButton button = new JButton(text);
+        button.addActionListener(actionListener);
+        return button;
+    }
+
+    private void openAddProductFrame(ActionEvent e) {
         JFrame addProductFrame = new JFrame("Add Product");
         // Add components for adding a new product
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: addProductFrame.add(new JLabel("Product Name"));
         // Example: addProductFrame.add(new JTextField());
-        addProductFrame.setSize(getScreenWidth(), getScreenHeight());
+        addProductFrame.setSize(800, 600);
         addProductFrame.setVisible(true);
     }
 
-    private void openListProductsFrame() {
+    private void openListProductsFrame(ActionEvent e) {
         JFrame listProductsFrame = new JFrame("List Products");
         // Add components for displaying a list of products
         // Example: JList, JTable, etc.
-        listProductsFrame.setSize(getScreenWidth(), getScreenHeight());
+        listProductsFrame.setSize(800, 600);
         listProductsFrame.setVisible(true);
     }
 
-    private void openUpdateProductFrame() {
+    private void openUpdateProductFrame(ActionEvent e) {
         JFrame updateProductFrame = new JFrame("Update Product");
         // Add components for updating an existing product
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: updateProductFrame.add(new JLabel("Product ID"));
         // Example: updateProductFrame.add(new JTextField());
-        updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
+        updateProductFrame.setSize(800, 600);
         updateProductFrame.setVisible(true);
     }
 
-    private void openProcessOrderFrame() {
+    private void openProcessOrderFrame(ActionEvent e) {
         JFrame processOrderFrame = new JFrame("Process Order");
         // Add components for processing an order
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: processOrderFrame.add(new JLabel("Customer Name"));
         // Example: processOrderFrame.add(new JTextField());
-        processOrderFrame.setSize(getScreenWidth(), getScreenHeight());
+        processOrderFrame.setSize(800, 600);
         processOrderFrame.setVisible(true);
     }
 
-    private void logout() {
-        // Implementation for logging out
+    private void logout(ActionEvent e) {
+        dispose();
     }
     
-    // Get the screen width
-    private int getScreenWidth() {
-        return Toolkit.getDefaultToolkit().getScreenSize().width;
-    }
-
-    // Get the screen height
-    private int getScreenHeight() {
-        return Toolkit.getDefaultToolkit().getScreenSize().height;
-    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
