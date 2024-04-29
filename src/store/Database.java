@@ -149,6 +149,28 @@ public class Database {
         productList.removeIf(product -> product.getName().equals(productId));
     }
     
+    public void updateProduct(String productId, Product newData) {
+    	boolean found = false;
+    	for (Product product : productList) {
+    		if (product.getName().equals(productId)) {
+    			product.setName(newData.getName());
+                product.setBrand(newData.getBrand());
+                product.setPrice(newData.getPrice());
+                product.setQuantity(newData.getQuantity());
+                product.setSize(newData.getSize());
+                product.setColor(newData.getColor());
+                product.setMaterial(newData.getMaterial());
+                product.setGender(newData.getGender());
+                found = true;
+                break;
+    		}
+    	}
+    	if (!found) {
+    		System.out.println("Product not found: " + productId);
+    	}
+    }
+    
+    
     public void processOrder(String productId, int quantity) {
     	for (Product product : productList) {
     		if (product.getName().equals(productId)) {
@@ -164,7 +186,6 @@ public class Database {
     		}
     	}
     	System.out.println("Product not found: " + productId);
-    
     }
 }
    
