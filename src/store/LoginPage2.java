@@ -101,13 +101,27 @@ public class LoginPage2 {
         JButton btnNewButton = new JButton("Log In");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // login to the system using the validateCredientials method from the Customer class
-                customer = new Customer(usernameField.getText(), passwordField.getText());
-                if (customer.validateLoginCredentials(usernameField.getText(), passwordField.getText())) {
-                    System.out.println("Login successful for Username: " + customer.username);
-                } else {
-                    System.out.println("Invalid login credentials");
-                }
+            	 String username = usernameField.getText();
+                 String password = passwordField.getText();
+
+                 //If the username or password is empty, print an error message and return
+				if (username.isEmpty() || password.isEmpty()) {
+					System.out.println("Username or password cannot be empty");
+					return;
+				}
+                 // Check if the customer object already exists
+                 if (customer == null) {
+                     // Try to create a new Customer object with the provided credentials
+                     customer = new Customer(username, password);
+                 }
+
+                 // Validate the login credentials
+                 if (customer.validateLoginCredentials(username, password)) {
+                     System.out.println("Login successful for Username: " + customer.username);
+                 } else {
+                     //customer = null;
+                     System.out.println("Invalid login credentials");
+                 }
             }
         });
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -119,10 +133,19 @@ public class LoginPage2 {
 
         JButton btnCreateAccount = new JButton("Create Account");
         btnCreateAccount.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                customer = customer.createAccount(usernameField.getText(), passwordField.getText());
-                System.out.println("Account created for Username: " + customer.username);
-            }
+        	 public void actionPerformed(ActionEvent e) {
+        	        String username = usernameField.getText();
+        	        String password = passwordField.getText();
+        	        if (username.isEmpty() || password.isEmpty()) {
+    					System.out.println("Username or password cannot be empty");
+    					return;
+    				}
+        	        if (customer == null) {
+        	            customer = new Customer();
+        	        }
+        	        customer = customer.createAccount(username, password);
+        	        System.out.println("Account created for Username: " + customer.username);
+        	    }
         });
         GridBagConstraints gbc_btnCreateAccount = new GridBagConstraints();
         gbc_btnCreateAccount.insets = new Insets(0, 0, 5, 5);
