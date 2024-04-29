@@ -11,6 +11,7 @@ public class Customer {
 	}
 	///createAccount method
 	public Customer createAccount(String username, String password) {
+		System.out.println("Creating account for Username: " + username);
         Customer customer = new Customer(username, password);
         return customer;
     }
@@ -36,6 +37,7 @@ public class Customer {
 
 	//deleteAccount method
 	public void deleteAccount() {
+		System.out.println("Deleting account for Username: " + this.username);
 		this.username = null;
 		this.password = null;
 	}
