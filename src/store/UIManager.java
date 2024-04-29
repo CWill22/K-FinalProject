@@ -3,83 +3,139 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class UIManager extends JFrame {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JButton addButton;
-    private JButton listButton;
-    private JButton updateButton;
-    private JButton processOrderButton;
-    private JButton logoutButton;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private JPanel loginPanel;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
 
     public UIManager() {
         setTitle("Mizzou Clothing Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(877, 413);
-        getContentPane().setLayout(new GridLayout(5, 1));
+        setSize(300, 200);
+        setLayout(new BorderLayout());
 
-        addButton = new JButton("Add Product");
-        listButton = new JButton("List Products");
-        updateButton = new JButton("Update Product");
-        processOrderButton = new JButton("Process Order");
-        logoutButton = new JButton("Logout");
+        // Create the login panel
+        createLoginPanel();
 
-        getContentPane().add(addButton);
-        getContentPane().add(listButton);
-        getContentPane().add(updateButton);
-        getContentPane().add(processOrderButton);
-        getContentPane().add(logoutButton);
+        // Add login panel to the frame
+        add(loginPanel, BorderLayout.CENTER);
 
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private void createLoginPanel() {
+        loginPanel = new JPanel(new GridLayout(3, 2));
+        usernameField = new JTextField();
+        passwordField = new JPasswordField();
+        JButton loginButton = new JButton("Login");
+
+        loginPanel.add(new JLabel("Username:"));
+        loginPanel.add(usernameField);
+        loginPanel.add(new JLabel("Password:"));
+        loginPanel.add(passwordField);
+        loginPanel.add(new JLabel()); // Placeholder for empty cell
+        loginPanel.add(loginButton);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                // Perform authentication
+                boolean authenticated = authenticate(username, password);
+                if (authenticated) {
+                    // If authentication succeeds, switch to main panel
+                    switchToMainPanel();
+                } else {
+                    // If authentication fails, show error message
+                    JOptionPane.showMessageDialog(UIManager.this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    private boolean authenticate(String username, String password) {
+        // Replace with your authentication logic
+        return "admin".equals(username) && "password".equals(password);
+    }
+
+    private void switchToMainPanel() {
+        // Remove login panel
+        getContentPane().removeAll();
+        
+        // Create and add main panel
+        JPanel mainPanel = createMainPanel();
+        add(mainPanel, BorderLayout.CENTER);
+
+        // Repaint the frame
+        revalidate();
+        repaint();
+    }
+
+    private JPanel createMainPanel() {
+        JPanel mainPanel = new JPanel(new GridLayout(5, 1));
+
+        JButton addButton = new JButton("Add Product");
+        JButton listButton = new JButton("List Products");
+        JButton updateButton = new JButton("Update Product");
+        JButton processOrderButton = new JButton("Process Order");
+        JButton logoutButton = new JButton("Logout");
+        
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle add product button click
-                viewAddProductForm();
+                openAddProductFrame();
             }
         });
 
         listButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle list products button click
-                viewListProducts();
+                openListProductsFrame();
             }
         });
 
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle update product button click
-                viewUpdateProductForm();
+                openUpdateProductFrame();
             }
         });
 
         processOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle process order button click
-                processOrder();
+                openProcessOrderFrame();
             }
         });
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle logout button click
                 logout();
                 dispose();
             }
         });
 
-        setVisible(true);
-    }
+        mainPanel.add(addButton);
+        mainPanel.add(listButton);
+        mainPanel.add(updateButton);
+        mainPanel.add(processOrderButton);
+        mainPanel.add(logoutButton);
 
-    // Method to display form for adding a new product
-    private void viewAddProductForm() {
+        // Add action listeners for main panel buttons
+
+        return mainPanel;
+    }
+    
+    private void openAddProductFrame() {
         JFrame addProductFrame = new JFrame("Add Product");
         // Add components for adding a new product
         // Example: JTextFields, JLabels, JButtons, etc.
@@ -89,8 +145,7 @@ public class UIManager extends JFrame {
         addProductFrame.setVisible(true);
     }
 
-    // Method to display a list of all products
-    private void viewListProducts() {
+    private void openListProductsFrame() {
         JFrame listProductsFrame = new JFrame("List Products");
         // Add components for displaying a list of products
         // Example: JList, JTable, etc.
@@ -98,8 +153,7 @@ public class UIManager extends JFrame {
         listProductsFrame.setVisible(true);
     }
 
-    // Method to display form for updating an existing product
-    private void viewUpdateProductForm() {
+    private void openUpdateProductFrame() {
         JFrame updateProductFrame = new JFrame("Update Product");
         // Add components for updating an existing product
         // Example: JTextFields, JLabels, JButtons, etc.
@@ -109,18 +163,16 @@ public class UIManager extends JFrame {
         updateProductFrame.setVisible(true);
     }
 
-    // Method to process an order
-    private void processOrder() {
-    	JFrame processOrderFrame = new JFrame("processOrder");
-        // Add components for updating an existing product
+    private void openProcessOrderFrame() {
+        JFrame processOrderFrame = new JFrame("Process Order");
+        // Add components for processing an order
         // Example: JTextFields, JLabels, JButtons, etc.
-        // Example: updateProductFrame.add(new JLabel("Product ID"));
-        // Example: updateProductFrame.add(new JTextField());
+        // Example: processOrderFrame.add(new JLabel("Customer Name"));
+        // Example: processOrderFrame.add(new JTextField());
         processOrderFrame.setSize(300, 200);
         processOrderFrame.setVisible(true);
     }
 
-    // Method to logout
     private void logout() {
         // Implementation for logging out
     }
