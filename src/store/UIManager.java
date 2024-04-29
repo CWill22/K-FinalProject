@@ -16,7 +16,7 @@ public class UIManager extends JFrame {
     public UIManager() {
         setTitle("Mizzou Clothing Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 200);
+        setSize(500, 500);
         setLayout(new BorderLayout());
 
         // Create the login panel
@@ -62,7 +62,7 @@ public class UIManager extends JFrame {
     }
 
     private boolean authenticate(String username, String password) {
-        // Replace with your authentication logic
+        // Replace with authentication logic
         return "admin".equals(username) && "password".equals(password);
     }
 
@@ -141,7 +141,7 @@ public class UIManager extends JFrame {
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: addProductFrame.add(new JLabel("Product Name"));
         // Example: addProductFrame.add(new JTextField());
-        addProductFrame.setSize(300, 200);
+        addProductFrame.setSize(getScreenWidth(), getScreenHeight());
         addProductFrame.setVisible(true);
     }
 
@@ -149,7 +149,7 @@ public class UIManager extends JFrame {
         JFrame listProductsFrame = new JFrame("List Products");
         // Add components for displaying a list of products
         // Example: JList, JTable, etc.
-        listProductsFrame.setSize(400, 300);
+        listProductsFrame.setSize(getScreenWidth(), getScreenHeight());
         listProductsFrame.setVisible(true);
     }
 
@@ -159,7 +159,7 @@ public class UIManager extends JFrame {
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: updateProductFrame.add(new JLabel("Product ID"));
         // Example: updateProductFrame.add(new JTextField());
-        updateProductFrame.setSize(300, 200);
+        updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
     }
 
@@ -169,12 +169,22 @@ public class UIManager extends JFrame {
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: processOrderFrame.add(new JLabel("Customer Name"));
         // Example: processOrderFrame.add(new JTextField());
-        processOrderFrame.setSize(300, 200);
+        processOrderFrame.setSize(getScreenWidth(), getScreenHeight());
         processOrderFrame.setVisible(true);
     }
 
     private void logout() {
         // Implementation for logging out
+    }
+    
+    // Get the screen width
+    private int getScreenWidth() {
+        return Toolkit.getDefaultToolkit().getScreenSize().width;
+    }
+
+    // Get the screen height
+    private int getScreenHeight() {
+        return Toolkit.getDefaultToolkit().getScreenSize().height;
     }
 
     public static void main(String[] args) {
