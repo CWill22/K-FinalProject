@@ -14,19 +14,6 @@ public class Customer {
         Customer customer = new Customer(username, password);
         return customer;
     }
-	
-	
-	
-	//getter and setter methods
-	/*
-	protected String getPassword() {
-		return password;
-	}
-	protected void setPassword(String password) {
-		this.password = password;
-	}
-	*/
-	
 	//validate password
 	public boolean validateLoginCredentials(String password) {
 		return this.password.equals(password);
