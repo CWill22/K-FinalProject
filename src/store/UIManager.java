@@ -114,7 +114,7 @@ public class UIManager extends JFrame {
     private void openAddProductFrame(ActionEvent e) {
         JFrame addProductFrame = new JFrame("Add Product");
        
-     // Create text fields for each attribute of the product
+        // Create text fields for each attribute of the product
         JTextField nameField = new JTextField();
         JTextField priceField = new JTextField();
         JTextField quantityField = new JTextField();
@@ -123,6 +123,13 @@ public class UIManager extends JFrame {
         JComboBox<Color> colorComboBox = new JComboBox<>(Color.values());
         JComboBox<Material> materialComboBox = new JComboBox<>(Material.values());
         JComboBox<Gender> genderComboBox = new JComboBox<>(Gender.values());
+        JComboBox<String> productTypeComboBox = new JComboBox<>();
+        productTypeComboBox.addItem("Crewneck");
+        productTypeComboBox.addItem("TShirt");
+        productTypeComboBox.addItem("Short");
+        productTypeComboBox.addItem("Sock");
+        productTypeComboBox.addItem("Sweatshirt");
+        productTypeComboBox.addItem("Sweatpant");
 
         // Add labels for each field
         JLabel nameLabel = new JLabel("Name:");
@@ -150,15 +157,57 @@ public class UIManager extends JFrame {
                 // Retrieve values from text fields and combo boxes
                 String name = nameField.getText();
                 Brands brand = (Brands) brandComboBox.getSelectedItem();
-                double price = Double.parseDouble(priceField.getText());
-                int quantity = Integer.parseInt(quantityField.getText());
+                double price;
+                int quantity;
                 Size size = (Size) sizeComboBox.getSelectedItem();
                 Color color = (Color) colorComboBox.getSelectedItem();
                 Material material = (Material) materialComboBox.getSelectedItem();
                 Gender gender = (Gender) genderComboBox.getSelectedItem();
+                
+                // Validate and parse price
+                try {
+                    price = Double.parseDouble(priceField.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(UIManager.this, "Invalid price format. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Stop processing further
+                }
 
-                // Create an instance of the appropriate subclass based on user input
-                Product newProduct = new Crewneck(name, brand, price, quantity, size, color, material, gender);
+                // Validate and parse quantity
+                try {
+                    quantity = Integer.parseInt(quantityField.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(UIManager.this, "Invalid quantity format. Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Stop processing further
+                }
+
+             // Determine the selected product type
+                String productType = (String) productTypeComboBox.getSelectedItem();
+
+                // Create an instance of the appropriate subclass based on the selected product type
+                Product newProduct = null;
+                switch (productType) {
+                    case "Crewneck":
+                        newProduct = new Crewneck(name, brand, price, quantity, size, color, material, gender);
+                        break;
+                    case "TShirt":
+                        newProduct = new TShirt(name, brand, price, quantity, size, color, material, gender);
+                        break;
+                    case "Short":
+                        newProduct = new Short(name, brand, price, quantity, size, color, material, gender);
+                        break;
+                    case "Sock":
+                        newProduct = new Sock(name, brand, price, quantity, size, color, material, gender);
+                        break;
+                    case "Sweatshirt":
+                        newProduct = new Sweatshirt(name, brand, price, quantity, size, color, material, gender);
+                        break;
+                    case "Sweatpant":
+                        newProduct = new Sweatpant(name, brand, price, quantity, size, color, material, gender);
+                        break;
+                    default:
+                    	JOptionPane.showMessageDialog(UIManager.this, "Invalid product type selected.", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                }
                 
                 // Add the new product to your database or list
                 database.insertProduct(newProduct);
