@@ -1,8 +1,11 @@
 package store;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class UIManager extends JFrame {
     /**
@@ -12,6 +15,7 @@ public class UIManager extends JFrame {
     private JPanel loginPanel; //Creates the loginPanel
     private JTextField usernameField; //Creates a field for usernames
     private JPasswordField passwordField; //Creates a field for passwords
+    private Database database;
 
     public UIManager() {
     	  
@@ -19,6 +23,8 @@ public class UIManager extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(866, 500);
         getContentPane().setLayout(new BorderLayout());
+        
+        database = new Database();
 
         // Create the login panel
         createLoginPanel();
@@ -90,8 +96,8 @@ public class UIManager extends JFrame {
         JPanel mainPanel = new JPanel(new GridLayout(5, 1));
 
         // Add buttons to main panel
-        mainPanel.add(createButton("Add Product", this::openAddProductFrame));
         mainPanel.add(createButton("List Products", this::openListProductsFrame));
+        mainPanel.add(createButton("Add Product", this::openAddProductFrame));
         mainPanel.add(createButton("Update Product", this::openUpdateProductFrame));
         mainPanel.add(createButton("Process Order", this::openProcessOrderFrame));
         mainPanel.add(createButton("Logout", this::logout));
@@ -116,19 +122,47 @@ public class UIManager extends JFrame {
     }
 
     private void openListProductsFrame(ActionEvent e) {
-        JFrame listProductsFrame = new JFrame("List Products");
-        // Add components for displaying a list of products
-        // Example: JList, JTable, etc.
+        
+    	List<Product> products = database.getProductList();
+        
+        DefaultTableModel model = new DefaultTableModel();
+        
+        model.addColumn("Name");
+        model.addColumn("Brand");
+        model.addColumn("Color");
+        model.addColumn("Size");
+        model.addColumn("Material");
+        model.addColumn("Gender");
+        model.addColumn("Price");
+        model.addColumn("Quantity");
+        
+        for (Product product : products) {
+        	model.addRow(new Object[] {
+        			product.getName(),
+        			product.getBrand(),
+        			product.getColor(),
+        			product.getSize(),
+        			product.getMaterial(),
+        			product.getGender(),
+        			product.getPrice(),
+        			product.getQuantity()
+        	});
+        }
+        
+        JTable table = new JTable(model);
+        
+        JScrollPane scrollPane = new JScrollPane(table);
+        
+    	
+    	JFrame listProductsFrame = new JFrame("List Products");
+    	listProductsFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         listProductsFrame.setSize(getScreenWidth(), getScreenHeight());
         listProductsFrame.setVisible(true);
     }
 
     private void openUpdateProductFrame(ActionEvent e) {
         JFrame updateProductFrame = new JFrame("Update Product");
-        // Add components for updating an existing product
-        // Example: JTextFields, JLabels, JButtons, etc.
-        // Example: updateProductFrame.add(new JLabel("Product ID"));
-        // Example: updateProductFrame.add(new JTextField());
+        
         updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
     }
