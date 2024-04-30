@@ -67,7 +67,7 @@ public class UIManager extends JFrame {
                     // If authentication succeeds, switch to main panel
                     switchToMainPanel();
                 } else {
-                    // If authentication fails, show error message
+                    // If authentication fails, show error message 
                     JOptionPane.showMessageDialog(UIManager.this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
             }
