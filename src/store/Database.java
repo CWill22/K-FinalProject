@@ -148,7 +148,8 @@ public class Database {
     public void deleteProduct(String productId) {
         productList.removeIf(product -> product.getName().equals(productId));
     }
-    
+    //I don't know why this created twice
+    /* 
     public void updateProduct(String productId, Product newData) {
     	boolean found = false;
     	for (Product product : productList) {
@@ -169,7 +170,7 @@ public class Database {
     		System.out.println("Product not found: " + productId);
     	}
     }
-    
+    */
     public List<Product> listProducts() {
     	return productList;
     }
