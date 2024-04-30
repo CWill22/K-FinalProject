@@ -161,7 +161,7 @@ public class UIManager extends JFrame {
                 Product newProduct = new Crewneck(name, brand, price, quantity, size, color, material, gender);
                 
                 // Add the new product to your database or list
-                // database.insertProduct(newProduct); // Assuming you have a database object
+                database.insertProduct(newProduct);
             }
         });
 
@@ -235,8 +235,104 @@ public class UIManager extends JFrame {
     private void openUpdateProductFrame(ActionEvent e) {
         JFrame updateProductFrame = new JFrame("Update Product");
         
+     // Create a table to display products
+        JTable productTable = new JTable();
+
+        // Create a scroll pane to hold the table
+        JScrollPane scrollPane = new JScrollPane(productTable);
+
+        // Add the scroll pane to the frame
+        updateProductFrame.add(scrollPane);
+
+        // Create an 'Update' button
+        JButton updateButton = new JButton("Update");
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected row and column
+                int selectedRow = productTable.getSelectedRow();
+                int selectedColumn = productTable.getSelectedColumn();
+
+                // Retrieve the selected product from the table model
+                Product selectedProduct = (Product) productTable.getValueAt(selectedRow, selectedColumn);
+
+                // Show a dialog for updating the selected product
+                showUpdateProductDialog(selectedProduct);
+            }
+        });
+
+        // Add the 'Update' button to the frame
+        updateProductFrame.add(updateButton, BorderLayout.SOUTH);
+
+        // Set frame properties and make it visible
         updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
+    }
+
+    // Method to show a dialog for updating product details
+    private void showUpdateProductDialog(Product product) {
+        // Create text fields and combo boxes for each attribute of the product
+        JTextField nameField = new JTextField(product.getName());
+        JTextField priceField = new JTextField(String.valueOf(product.getPrice()));
+        JTextField quantityField = new JTextField(String.valueOf(product.getQuantity()));
+        JComboBox<Brands> brandComboBox = new JComboBox<>(Brands.values());
+        brandComboBox.setSelectedItem(product.getBrand());
+        JComboBox<Size> sizeComboBox = new JComboBox<>(Size.values());
+        sizeComboBox.setSelectedItem(product.getSize());
+        JComboBox<Color> colorComboBox = new JComboBox<>(Color.values());
+        colorComboBox.setSelectedItem(product.getColor());
+        JComboBox<Material> materialComboBox = new JComboBox<>(Material.values());
+        materialComboBox.setSelectedItem(product.getMaterial());
+        JComboBox<Gender> genderComboBox = new JComboBox<>(Gender.values());
+        genderComboBox.setSelectedItem(product.getGender());
+
+        // Create labels for each field
+        JLabel nameLabel = new JLabel("Name:");
+        JLabel brandLabel = new JLabel("Brand:");
+        JLabel priceLabel = new JLabel("Price:");
+        JLabel quantityLabel = new JLabel("Quantity:");
+        JLabel sizeLabel = new JLabel("Size:");
+        JLabel colorLabel = new JLabel("Color:");
+        JLabel materialLabel = new JLabel("Material:");
+        JLabel genderLabel = new JLabel("Gender:");
+
+        // Create a panel to hold the components
+        JPanel panel = new JPanel(new GridLayout(9, 2));
+
+        // Add components to the panel
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(brandLabel);
+        panel.add(brandComboBox);
+        panel.add(priceLabel);
+        panel.add(priceField);
+        panel.add(quantityLabel);
+        panel.add(quantityField);
+        panel.add(sizeLabel);
+        panel.add(sizeComboBox);
+        panel.add(colorLabel);
+        panel.add(colorComboBox);
+        panel.add(materialLabel);
+        panel.add(materialComboBox);
+        panel.add(genderLabel);
+        panel.add(genderComboBox);
+
+        // Show the dialog
+        int result = JOptionPane.showConfirmDialog(null, panel, "Update Product", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            // Update the product with the new values
+            product.setName(nameField.getText());
+            product.setBrand((Brands) brandComboBox.getSelectedItem());
+            product.setPrice(Double.parseDouble(priceField.getText()));
+            product.setQuantity(Integer.parseInt(quantityField.getText()));
+            product.setSize((Size) sizeComboBox.getSelectedItem());
+            product.setColor((Color) colorComboBox.getSelectedItem());
+            product.setMaterial((Material) materialComboBox.getSelectedItem());
+            product.setGender((Gender) genderComboBox.getSelectedItem());
+            
+            // Update the product in the database
+            // database.updateProduct(selectedProductId, product); // Assuming you have a database object
+        }
     }
 
     private void openProcessOrderFrame(ActionEvent e) {
