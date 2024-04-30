@@ -98,7 +98,7 @@ public class Database {
     }
 
     // Updates an existing product’s data
-    public void updateProduct(String productId, Product newData) {
+    public void updateProductone(String productId, Product newData) {
         for (Product product : productList) {
             if (product.getName().equals(productId)) {
                 // Update the product's data
@@ -148,9 +148,56 @@ public class Database {
     public void deleteProduct(String productId) {
         productList.removeIf(product -> product.getName().equals(productId));
     }
+<<<<<<< HEAD
 
     public List<Product> getProductList() {
         return productList; //Getter for Product List
+=======
+    //I don't know why this created twice
+    /* 
+    public void updateProduct(String productId, Product newData) {
+    	boolean found = false;
+    	for (Product product : productList) {
+    		if (product.getName().equals(productId)) {
+    			product.setName(newData.getName());
+                product.setBrand(newData.getBrand());
+                product.setPrice(newData.getPrice());
+                product.setQuantity(newData.getQuantity());
+                product.setSize(newData.getSize());
+                product.setColor(newData.getColor());
+                product.setMaterial(newData.getMaterial());
+                product.setGender(newData.getGender());
+                found = true;
+                break;
+    		}
+    	}
+    	if (!found) {
+    		System.out.println("Product not found: " + productId);
+    	}
+    }
+    */
+    public List<Product> listProducts() {
+    	return productList;
+    }
+    
+    
+    public void processOrder(String productId, int quantity) {
+    	for (Product product : productList) {
+    		if (product.getName().equals(productId)) {
+    			
+    			if (product.getQuantity() >= quantity) {
+    				
+    				product.setQuantity(product.getQuantity() - quantity);
+    				System.out.println("Order processed successfully for " + quantity + " " + productId);
+    			} else {
+    				System.out.println("Insufficient quantity in stock for " + productId);
+    			}
+    			return;
+    		}
+    	}
+    	System.out.println("Product not found: " + productId);
+>>>>>>> branch 'main' of https://github.com/CWill22/K-FinalProject
     }
 }
+   
 

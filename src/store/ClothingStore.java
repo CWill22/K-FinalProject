@@ -3,7 +3,7 @@ package store;
 public class ClothingStore {
 	initializeUI() {
         //initialize the UserInterface
-        UserInterface ui = new UserInterface();
+		UserInterface ui = new UserInterface();
     }
 	
 	initializeDatabase() {
