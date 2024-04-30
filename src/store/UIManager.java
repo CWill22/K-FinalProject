@@ -113,10 +113,82 @@ public class UIManager extends JFrame {
 
     private void openAddProductFrame(ActionEvent e) {
         JFrame addProductFrame = new JFrame("Add Product");
-        // Add components for adding a new product
-        // Example: JTextFields, JLabels, JButtons, etc.
-        // Example: addProductFrame.add(new JLabel("Product Name"));
-        // Example: addProductFrame.add(new JTextField());
+       
+     // Create text fields for each attribute of the product
+        JTextField nameField = new JTextField();
+        JTextField priceField = new JTextField();
+        JTextField quantityField = new JTextField();
+        JComboBox<Brands> brandComboBox = new JComboBox<>(Brands.values());
+        JComboBox<Size> sizeComboBox = new JComboBox<>(Size.values());
+        JComboBox<Color> colorComboBox = new JComboBox<>(Color.values());
+        JComboBox<Material> materialComboBox = new JComboBox<>(Material.values());
+        JComboBox<Gender> genderComboBox = new JComboBox<>(Gender.values());
+
+        // Add labels for each field
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel brandLabel = new JLabel("Brand:");
+        brandLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel priceLabel = new JLabel("Price:");
+        priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel quantityLabel = new JLabel("Quantity:");
+        quantityLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel sizeLabel = new JLabel("Size:");
+        sizeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel colorLabel = new JLabel("Color:");
+        colorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel materialLabel = new JLabel("Material:");
+        materialLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel genderLabel = new JLabel("Gender:");
+        genderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Create the 'Add' button
+        JButton addButton = new JButton("Add");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Retrieve values from text fields and combo boxes
+                String name = nameField.getText();
+                Brands brand = (Brands) brandComboBox.getSelectedItem();
+                double price = Double.parseDouble(priceField.getText());
+                int quantity = Integer.parseInt(quantityField.getText());
+                Size size = (Size) sizeComboBox.getSelectedItem();
+                Color color = (Color) colorComboBox.getSelectedItem();
+                Material material = (Material) materialComboBox.getSelectedItem();
+                Gender gender = (Gender) genderComboBox.getSelectedItem();
+
+                // Create an instance of the appropriate subclass based on user input
+                Product newProduct = new Crewneck(name, brand, price, quantity, size, color, material, gender);
+                
+                // Add the new product to your database or list
+                // database.insertProduct(newProduct); // Assuming you have a database object
+            }
+        });
+
+        // Create a panel to hold the components
+        JPanel panel = new JPanel(new GridLayout(9, 2));
+        // Add components to the panel
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(brandLabel);
+        panel.add(brandComboBox);
+        panel.add(priceLabel);
+        panel.add(priceField);
+        panel.add(quantityLabel);
+        panel.add(quantityField);
+        panel.add(sizeLabel);
+        panel.add(sizeComboBox);
+        panel.add(colorLabel);
+        panel.add(colorComboBox);
+        panel.add(materialLabel);
+        panel.add(materialComboBox);
+        panel.add(genderLabel);
+        panel.add(genderComboBox);
+        panel.add(addButton); // Add the 'Add' button
+
+        // Add the panel to the frame
+        addProductFrame.add(panel);
+        
         addProductFrame.setSize(getScreenWidth(), getScreenHeight());
         addProductFrame.setVisible(true);
     }
