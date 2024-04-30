@@ -7,7 +7,7 @@ public class Main {
 		//Initialize the database
 		Database db = new Database();
 		//Initialize the UserInterface
-		UserInterface ui = new UserInterface();
+		UIManager uiManager = new UIManager();
 		
 	}
 
