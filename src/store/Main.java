@@ -6,7 +6,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		//Initialize the database
 		Database db = new Database();
-		//Initialize the UserInterface
+		//Initialize the UIManager
 		UIManager uiManager = new UIManager();
 		
 	}
