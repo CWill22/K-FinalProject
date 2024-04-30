@@ -148,6 +148,9 @@ public class UIManager extends JFrame {
         materialLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel genderLabel = new JLabel("Gender:");
         genderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel typeLabel = new JLabel("Type:");
+        typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
 
         // Create the 'Add' button
         JButton addButton = new JButton("Add");
@@ -215,8 +218,10 @@ public class UIManager extends JFrame {
         });
 
         // Create a panel to hold the components
-        JPanel panel = new JPanel(new GridLayout(9, 2));
+        JPanel panel = new JPanel(new GridLayout(10, 2));
         // Add components to the panel
+        panel.add(typeLabel);
+        panel.add(productTypeComboBox);
         panel.add(nameLabel);
         panel.add(nameField);
         panel.add(brandLabel);
