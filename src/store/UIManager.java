@@ -9,12 +9,13 @@ public class UIManager extends JFrame {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private JPanel loginPanel;
-    private JTextField usernameField;
-    private JPasswordField passwordField;
+    private JPanel loginPanel; //Creates the loginPanel
+    private JTextField usernameField; //Creates a field for usernames
+    private JPasswordField passwordField; //Creates a field for passwords
 
     public UIManager() {
-        setTitle("Mizzou Clothing Management System");
+    	  
+        setTitle("Mizzou Clothing Management System"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(866, 500);
         getContentPane().setLayout(new BorderLayout());
@@ -31,21 +32,21 @@ public class UIManager extends JFrame {
 
     private void createLoginPanel() {
         loginPanel = new JPanel(new GridLayout(0, 1));
-        usernameField = new JTextField();
+        usernameField = new JTextField(); //Creates the field for users to input a user name
         usernameField.setHorizontalAlignment(SwingConstants.CENTER);
-        passwordField = new JPasswordField();
+        passwordField = new JPasswordField(); //Creates the field for users to input a password
         passwordField.setHorizontalAlignment(SwingConstants.CENTER);
         JButton loginButton = new JButton("Login");
 
+        //Add labels for username and password
         JLabel label = new JLabel("Username: ");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         loginPanel.add(label);
-        loginPanel.add(usernameField);
+        loginPanel.add(usernameField); //Adds the user name Field to the loginPanel
         JLabel label_1 = new JLabel("Password: ");
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
         loginPanel.add(label_1);
-        loginPanel.add(passwordField);
-        loginPanel.add(new JLabel()); // Placeholder for empty cell
+        loginPanel.add(passwordField); //Add the pssword field to the loginPanel
         loginPanel.add(loginButton);
 
         loginButton.addActionListener(new ActionListener() {
@@ -67,7 +68,7 @@ public class UIManager extends JFrame {
         });
     }
 
-    private boolean authenticate(String username, String password) {
+    private boolean authenticate(String username, String password) { //Set the user name and password here
         // Replace with authentication logic
         return "admin".equals(username) && "password".equals(password);
     }
@@ -110,7 +111,7 @@ public class UIManager extends JFrame {
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: addProductFrame.add(new JLabel("Product Name"));
         // Example: addProductFrame.add(new JTextField());
-        addProductFrame.setSize(800, 600);
+        addProductFrame.setSize(getScreenWidth(), getScreenHeight());
         addProductFrame.setVisible(true);
     }
 
@@ -118,7 +119,7 @@ public class UIManager extends JFrame {
         JFrame listProductsFrame = new JFrame("List Products");
         // Add components for displaying a list of products
         // Example: JList, JTable, etc.
-        listProductsFrame.setSize(800, 600);
+        listProductsFrame.setSize(getScreenWidth(), getScreenHeight());
         listProductsFrame.setVisible(true);
     }
 
@@ -128,7 +129,7 @@ public class UIManager extends JFrame {
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: updateProductFrame.add(new JLabel("Product ID"));
         // Example: updateProductFrame.add(new JTextField());
-        updateProductFrame.setSize(800, 600);
+        updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
     }
 
@@ -138,7 +139,7 @@ public class UIManager extends JFrame {
         // Example: JTextFields, JLabels, JButtons, etc.
         // Example: processOrderFrame.add(new JLabel("Customer Name"));
         // Example: processOrderFrame.add(new JTextField());
-        processOrderFrame.setSize(800, 600);
+        processOrderFrame.setSize(getScreenWidth(), getScreenHeight());
         processOrderFrame.setVisible(true);
     }
 
@@ -146,6 +147,16 @@ public class UIManager extends JFrame {
         dispose();
     }
     
+    // Get the screen width
+    private int getScreenWidth() {
+        return Toolkit.getDefaultToolkit().getScreenSize().width;
+    }
+
+    // Get the screen height
+    private int getScreenHeight() {
+        return Toolkit.getDefaultToolkit().getScreenSize().height;
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

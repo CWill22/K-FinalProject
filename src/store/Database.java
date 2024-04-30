@@ -149,6 +149,8 @@ public class Database {
         productList.removeIf(product -> product.getName().equals(productId));
     }
 
-    
+    public List<Product> getProductList() {
+        return productList; //Getter for Product List
+    }
 }
 
