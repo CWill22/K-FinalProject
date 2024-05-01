@@ -406,6 +406,7 @@ public class UIManager extends JFrame {
         updateProductFrame.add(updateButton, BorderLayout.SOUTH);
 
         // Set frame properties and make it visible
+        updateProductFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the frame
         updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
     }
