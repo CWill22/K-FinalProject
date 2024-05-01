@@ -492,6 +492,7 @@ public class UIManager extends JFrame {
         }
     }
     
+    @SuppressWarnings("unchecked") // Suppress unchecked warning
     private void loadUserMapFromFile() {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
             userMap = (HashMap<String, String>) inputStream.readObject();
