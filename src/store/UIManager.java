@@ -348,14 +348,15 @@ public class UIManager extends JFrame {
     	
     	JFrame listProductsFrame = new JFrame("List Products");
     	listProductsFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-        listProductsFrame.setSize(1024, 768);
+        listProductsFrame.setSize(getScreenWidth(), getScreenHeight());
         listProductsFrame.setVisible(true);
     }
 
     private void openUpdateProductFrame(ActionEvent e) {
         JFrame updateProductFrame = new JFrame("Update Product");
-        
-        // Create a table model with columns for product attributes
+
+        // Create a table to display products
+        List<Product> products = database.getProductList();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Name");
         model.addColumn("Brand");
@@ -363,142 +364,96 @@ public class UIManager extends JFrame {
         model.addColumn("Quantity");
         model.addColumn("Size");
         model.addColumn("Color");
-        model.addColumn("Material");
         model.addColumn("Gender");
-        
-        // Retrieve the list of products from the database
-        List<Product> products = database.getProductList();
-        
-        // Add each product to the table model
+        model.addColumn("Material");
+
         for (Product product : products) {
-            model.addRow(new Object[] {
-                product.getName(),
-                product.getBrand(),
-                product.getPrice(),
-                product.getQuantity(),
-                product.getSize(),
-                product.getColor(),
-                product.getMaterial(),
-                product.getGender()
+            model.addRow(new Object[]{
+                    product.getName(),
+                    product.getBrand(),
+                    product.getPrice(),
+                    product.getQuantity(),
+                    product.getSize(),
+                    product.getColor(),
+                    product.getGender(),
+                    product.getMaterial()
             });
         }
-        
-        // Create a JTable with the table model
+
         JTable productTable = new JTable(model);
-        
+
         // Create a scroll pane to hold the table
         JScrollPane scrollPane = new JScrollPane(productTable);
-        
+
+        // Add the scroll pane to the frame
+        updateProductFrame.add(scrollPane);
+
         // Create an 'Update' button
         JButton updateButton = new JButton("Update");
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Get the selected row
                 int selectedRow = productTable.getSelectedRow();
                 if (selectedRow != -1) {
-                    // Retrieve the selected product from the table model
-                    Product selectedProduct = products.get(selectedRow);
-                    
-                    // Show a dialog for updating the selected product
-                    boolean updated = showUpdateProductDialog(selectedProduct);
-                    if (updated) {
-                        // Update the product in the database
-                        database.updateProduct(selectedProduct.getName(), selectedProduct);
-                        
-                        // Refresh the table model
-                        model.setValueAt(selectedProduct.getName(), selectedRow, 0);
-                        model.setValueAt(selectedProduct.getBrand(), selectedRow, 1);
-                        model.setValueAt(selectedProduct.getPrice(), selectedRow, 2);
-                        model.setValueAt(selectedProduct.getQuantity(), selectedRow, 3);
-                        model.setValueAt(selectedProduct.getSize(), selectedRow, 4);
-                        model.setValueAt(selectedProduct.getColor(), selectedRow, 5);
-                        model.setValueAt(selectedProduct.getMaterial(), selectedRow, 6);
-                        model.setValueAt(selectedProduct.getGender(), selectedRow, 7);
-                    }
+                    updateSelectedProduct(selectedRow, model);
                 } else {
                     JOptionPane.showMessageDialog(updateProductFrame, "Please select a product to update.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-        
-        // Add components to the frame
-        updateProductFrame.add(scrollPane, BorderLayout.CENTER);
+
+        // Add the 'Update' button to the frame
         updateProductFrame.add(updateButton, BorderLayout.SOUTH);
-        
+
         // Set frame properties and make it visible
-        updateProductFrame.setSize(800, 600); // Set a preferred size
-        updateProductFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
     }
 
-    // Method to show a dialog for updating product details
-    private boolean showUpdateProductDialog(Product product) {
-        // Create text fields and combo boxes for each attribute of the product
-        JTextField nameField = new JTextField(product.getName());
-        JTextField priceField = new JTextField(String.valueOf(product.getPrice()));
-        JTextField quantityField = new JTextField(String.valueOf(product.getQuantity()));
-        JComboBox<Brands> brandComboBox = new JComboBox<>(Brands.values());
-        brandComboBox.setSelectedItem(product.getBrand());
-        JComboBox<Size> sizeComboBox = new JComboBox<>(Size.values());
-        sizeComboBox.setSelectedItem(product.getSize());
-        JComboBox<Color> colorComboBox = new JComboBox<>(Color.values());
-        colorComboBox.setSelectedItem(product.getColor());
-        JComboBox<Material> materialComboBox = new JComboBox<>(Material.values());
-        materialComboBox.setSelectedItem(product.getMaterial());
-        JComboBox<Gender> genderComboBox = new JComboBox<>(Gender.values());
-        genderComboBox.setSelectedItem(product.getGender());
-        
-        // Create labels for each field
-        JLabel nameLabel = new JLabel("Name:");
-        JLabel brandLabel = new JLabel("Brand:");
-        JLabel priceLabel = new JLabel("Price:");
-        JLabel quantityLabel = new JLabel("Quantity:");
-        JLabel sizeLabel = new JLabel("Size:");
-        JLabel colorLabel = new JLabel("Color:");
-        JLabel materialLabel = new JLabel("Material:");
-        JLabel genderLabel = new JLabel("Gender:");
-        
-        // Create a panel to hold the components
-        JPanel panel = new JPanel(new GridLayout(9, 2));
-        
-        // Add components to the panel
-        panel.add(nameLabel);
-        panel.add(nameField);
-        panel.add(brandLabel);
-        panel.add(brandComboBox);
-        panel.add(priceLabel);
-        panel.add(priceField);
-        panel.add(quantityLabel);
-        panel.add(quantityField);
-        panel.add(sizeLabel);
-        panel.add(sizeComboBox);
-        panel.add(colorLabel);
-        panel.add(colorComboBox);
-        panel.add(materialLabel);
-        panel.add(materialComboBox);
-        panel.add(genderLabel);
-        panel.add(genderComboBox);
-        
-        // Show the dialog
-        int result = JOptionPane.showConfirmDialog(null, panel, "Update Product", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
-            // Update the product with the new values
-            product.setName(nameField.getText());
-            product.setBrand((Brands) brandComboBox.getSelectedItem());
-            product.setPrice(Double.parseDouble(priceField.getText()));
-            product.setQuantity(Integer.parseInt(quantityField.getText()));
-            product.setSize((Size) sizeComboBox.getSelectedItem());
-            product.setColor((Color) colorComboBox.getSelectedItem());
-            product.setMaterial((Material) materialComboBox.getSelectedItem());
-            product.setGender((Gender) genderComboBox.getSelectedItem());
-            
-            return true; // Return true indicating successful update
+    private void updateSelectedProduct(int row, DefaultTableModel model) {
+        String productName = (String) model.getValueAt(row, 0);
+        Product originalProduct = getProductByName(productName);
+
+        if (originalProduct != null) {
+            Brands brand = (Brands) model.getValueAt(row, 1);
+            double price = (double) model.getValueAt(row, 2);
+            int quantity = (int) model.getValueAt(row, 3);
+            Size size = (Size) model.getValueAt(row, 4);
+            Color color = (Color) model.getValueAt(row, 5);
+            Gender gender = (Gender) model.getValueAt(row, 6);
+            Material material = (Material) model.getValueAt(row, 7);
+
+            Product updatedProduct = null;
+            if (originalProduct instanceof Crewneck) {
+                updatedProduct = new Crewneck(productName, brand, price, quantity, size, color, material, gender);
+            } else if (originalProduct instanceof TShirt) {
+                updatedProduct = new TShirt(productName, brand, price, quantity, size, color, material, gender);
+            }
+            // Add similar conditions for other product types
+
+            if (updatedProduct != null) {
+                database.updateProduct(productName, updatedProduct);
+                JOptionPane.showMessageDialog(null, "Product updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to update product: Unsupported product type", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to update product: Product not found", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        return false; // Return false indicating update canceled
     }
 
+    // Method to retrieve a product from the database by its name
+    private Product getProductByName(String productName) {
+        List<Product> productList = database.getProductList();
+        for (Product product : productList) {
+            if (product.getName().equals(productName)) {
+                return product;
+            }
+        }
+        return null; // Product not found
+    }
+
+        
     private void openProcessOrderFrame(ActionEvent e) {
         JFrame processOrderFrame = new JFrame("Process Order");
         // Add components for processing an order
