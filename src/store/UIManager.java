@@ -5,6 +5,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UIManager extends JFrame {
@@ -16,15 +24,17 @@ public class UIManager extends JFrame {
     private JTextField usernameField; //Creates a field for usernames
     private JPasswordField passwordField; //Creates a field for passwords
     private Database database;
+    private HashMap<String, String> userMap;
 
     public UIManager() {
-    	  
+    	    	
         setTitle("Mizzou Clothing Management System"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(866, 500);
         getContentPane().setLayout(new BorderLayout());
         
         database = new Database();
+        userMap = new HashMap<>();
 
         // Create the login panel
         createLoginPanel();
@@ -43,6 +53,7 @@ public class UIManager extends JFrame {
         passwordField = new JPasswordField(); //Creates the field for users to input a password
         passwordField.setHorizontalAlignment(SwingConstants.CENTER);
         JButton loginButton = new JButton("Login");
+        JButton registerButton = new JButton("Register");
 
         //Add labels for username and password
         JLabel label = new JLabel("Username: ");
@@ -52,31 +63,57 @@ public class UIManager extends JFrame {
         JLabel label_1 = new JLabel("Password: ");
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
         loginPanel.add(label_1);
-        loginPanel.add(passwordField); //Add the pssword field to the loginPanel
+        loginPanel.add(passwordField); //Add the password field to the loginPanel
         loginPanel.add(loginButton);
+        loginPanel.add(registerButton);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+            	String username = usernameField.getText();
+            	String password = new String(passwordField.getPassword());
 
-                // Perform authentication
-                boolean authenticated = authenticate(username, password);
-                if (authenticated) {
-                    // If authentication succeeds, switch to main panel
-                    switchToMainPanel();
-                } else {
-                    // If authentication fails, show error message 
-                    JOptionPane.showMessageDialog(UIManager.this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
-                }
+            	// Perform authentication
+            	boolean authenticated = authenticate(username, password);
+            	if (authenticated) {
+            		// If authentication succeeds, switch to main panel
+            		switchToMainPanel();
+            	} else {
+            		// If authentication fails, show error message 
+            		JOptionPane.showMessageDialog(UIManager.this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            	}
             }
         });
+
+        registerButton.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		String username = usernameField.getText();
+        		String password = new String(passwordField.getPassword());
+
+        		// Check if the username is available
+        		if (isUsernameAvailable(username)) {
+        			// Add the new user to the list
+        			userMap.put(username, password);
+        			
+        			saveUserMapToFile();
+        			
+        			JOptionPane.showMessageDialog(UIManager.this, "Registration successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+        		} else {
+        			// Show error message if the username is not available
+        			JOptionPane.showMessageDialog(UIManager.this, "Username already exists", "Registration Failed", JOptionPane.ERROR_MESSAGE);
+        		}
+        	}
+        });
+    }
+    
+    private boolean authenticate(String username, String password) {
+        String storedPassword = userMap.get(username);
+        return storedPassword != null && storedPassword.equals(password);
     }
 
-    private boolean authenticate(String username, String password) { //Set the user name and password here
-        // Replace with authentication logic
-        return "admin".equals(username) && "password".equals(password);
+    private boolean isUsernameAvailable(String username) {
+        return !userMap.containsKey(username);
     }
 
     private void switchToMainPanel() {
@@ -412,7 +449,27 @@ public class UIManager extends JFrame {
     private int getScreenHeight() {
         return Toolkit.getDefaultToolkit().getScreenSize().height;
     }
+    
+    private void loadUserMapFromFile() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
+            userMap = (HashMap<String, String>) inputStream.readObject();
+        } catch (FileNotFoundException e) {
+            // Ignore if file not found
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            // Handle other exceptions
+        }
+    }
 
+    // Save user map to file
+    private void saveUserMapToFile() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userMap.dat"))) {
+            outputStream.writeObject(userMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

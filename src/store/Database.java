@@ -98,7 +98,7 @@ public class Database {
     }
 
     // Updates an existing product’s data
-    public void updateProductone(String productId, Product newData) {
+    public void updateProduct(String productId, Product newData) {
         for (Product product : productList) {
             if (product.getName().equals(productId)) {
                 // Update the product's data
