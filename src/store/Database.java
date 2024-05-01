@@ -148,34 +148,7 @@ public class Database {
     public void deleteProduct(String productId) {
         productList.removeIf(product -> product.getName().equals(productId));
     }
-<<<<<<< HEAD
 
-    public List<Product> getProductList() {
-        return productList; //Getter for Product List
-=======
-    //I don't know why this created twice
-    /* 
-    public void updateProduct(String productId, Product newData) {
-    	boolean found = false;
-    	for (Product product : productList) {
-    		if (product.getName().equals(productId)) {
-    			product.setName(newData.getName());
-                product.setBrand(newData.getBrand());
-                product.setPrice(newData.getPrice());
-                product.setQuantity(newData.getQuantity());
-                product.setSize(newData.getSize());
-                product.setColor(newData.getColor());
-                product.setMaterial(newData.getMaterial());
-                product.setGender(newData.getGender());
-                found = true;
-                break;
-    		}
-    	}
-    	if (!found) {
-    		System.out.println("Product not found: " + productId);
-    	}
-    }
-    */
     public List<Product> listProducts() {
     	return productList;
     }
