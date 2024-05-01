@@ -493,45 +493,36 @@ public class UIManager extends JFrame {
         }
     }
     
+    private static final String USER_MAP_FILE_PATH = "resources/userMap.dat"; // Define the file path
+
+    // Modify loadUserMapFromFile method
     @SuppressWarnings("unchecked")
     private void loadUserMapFromFile() {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("resources/userMap.dat")) {
-            if (inputStream != null) {
-                try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
-                    userMap = (HashMap<String, String>) objectInputStream.readObject();
-                    System.out.println("User map loaded successfully.");
-                } catch (ClassNotFoundException e) {
-                    System.err.println("Class not found: " + e.getMessage());
-                }
-            } else {
-                System.err.println("Error loading user map file: InputStream is null.");
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading user map file: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
-    // Modify the file path for saving user map to file
-    private void saveUserMapToFile() {
-        try {
-            // Create an output stream to write objects to a file
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File("resources/userMap.dat")));
-
-            // Write the user map object to the file
-            outputStream.writeObject(userMap);
-
-            // Close the output stream
-            outputStream.close();
-
-            // Inform user
-            System.out.println("User map saved successfully.");
-        } catch (IOException e) {
-            System.err.println("Error writing user map file: " + e.getMessage());
-            e.printStackTrace();
-        }
+    	try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(USER_MAP_FILE_PATH))) {
+    		userMap = (HashMap<String, String>) inputStream.readObject();
+    		System.out.println("User map loaded successfully.");
+    	} catch (FileNotFoundException e) {
+    		System.err.println("File not found: " + USER_MAP_FILE_PATH);
+    	} catch (IOException e) {
+    		System.err.println("Error reading user map file: " + e.getMessage());
+    		e.printStackTrace();
+    	} catch (ClassNotFoundException e) {
+    		System.err.println("Class not found: " + e.getMessage());
+    	}
     }
 
+ // Modify saveUserMapToFile method
+ private void saveUserMapToFile() {
+     try {
+         ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(USER_MAP_FILE_PATH));
+         outputStream.writeObject(userMap);
+         outputStream.close();
+         System.out.println("User map saved successfully.");
+     } catch (IOException e) {
+         System.err.println("Error writing user map file: " + e.getMessage());
+         e.printStackTrace();
+     }
+ }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
