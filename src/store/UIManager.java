@@ -495,17 +495,20 @@ public class UIManager extends JFrame {
     
     @SuppressWarnings("unchecked")
     private void loadUserMapFromFile() {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("resources/userMap.dat");
-             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
-            userMap = (HashMap<String, String>) objectInputStream.readObject();
-            System.out.println("User map loaded successfully.");
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: userMap.dat");
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("resources/userMap.dat")) {
+            if (inputStream != null) {
+                try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
+                    userMap = (HashMap<String, String>) objectInputStream.readObject();
+                    System.out.println("User map loaded successfully.");
+                } catch (ClassNotFoundException e) {
+                    System.err.println("Class not found: " + e.getMessage());
+                }
+            } else {
+                System.err.println("Error loading user map file: InputStream is null.");
+            }
         } catch (IOException e) {
             System.err.println("Error reading user map file: " + e.getMessage());
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.err.println("Class not found: " + e.getMessage());
         }
     }
     
