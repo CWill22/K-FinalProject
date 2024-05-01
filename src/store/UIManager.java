@@ -5,7 +5,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UIManager extends JFrame {
@@ -17,17 +24,17 @@ public class UIManager extends JFrame {
     private JTextField usernameField; //Creates a field for usernames
     private JPasswordField passwordField; //Creates a field for passwords
     private Database database;
-    private ArrayList<User> userList;
+    private HashMap<String, String> userMap;
 
     public UIManager() {
-    	  
-    	this.userList = new ArrayList<> ();   	
+    	    	
         setTitle("Mizzou Clothing Management System"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(866, 500);
         getContentPane().setLayout(new BorderLayout());
         
         database = new Database();
+        userMap = new HashMap<>();
 
         // Create the login panel
         createLoginPanel();
@@ -87,7 +94,10 @@ public class UIManager extends JFrame {
         		// Check if the username is available
         		if (isUsernameAvailable(username)) {
         			// Add the new user to the list
-        			userList.add(new User(username, password));
+        			userMap.put(username, password);
+        			
+        			saveUserMapToFile();
+        			
         			JOptionPane.showMessageDialog(UIManager.this, "Registration successful", "Success", JOptionPane.INFORMATION_MESSAGE);
         		} else {
         			// Show error message if the username is not available
@@ -98,22 +108,12 @@ public class UIManager extends JFrame {
     }
     
     private boolean authenticate(String username, String password) {
-    	for (User user : userList) {
-    		if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-    			return true; //User is found
-    		}
-    	}
-    	return false;
+        String storedPassword = userMap.get(username);
+        return storedPassword != null && storedPassword.equals(password);
     }
-    
-    //Check if username is available
+
     private boolean isUsernameAvailable(String username) {
-    	for (User user : userList) {
-    		if(user.getUsername().equals(username)) {
-    			return false; //Username already exists
-    		}
-    	}
-    	return true; //Username available
+        return !userMap.containsKey(username);
     }
 
     private void switchToMainPanel() {
@@ -448,6 +448,27 @@ public class UIManager extends JFrame {
     // Get the screen height
     private int getScreenHeight() {
         return Toolkit.getDefaultToolkit().getScreenSize().height;
+    }
+    
+    private void loadUserMapFromFile() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
+            userMap = (HashMap<String, String>) inputStream.readObject();
+        } catch (FileNotFoundException e) {
+            // Ignore if file not found
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            // Handle other exceptions
+        }
+    }
+
+    // Save user map to file
+    private void saveUserMapToFile() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userMap.dat"))) {
+            outputStream.writeObject(userMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
     }
 
     public static void main(String[] args) {
