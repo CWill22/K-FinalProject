@@ -356,7 +356,16 @@ public class UIManager extends JFrame {
         JFrame updateProductFrame = new JFrame("Update Product");
         
         // Create a table model with columns for product attributes
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            private static final long serialVersionUID = 1L;
+
+			// Override the isCellEditable method to prevent cell editing
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable cell editing
+            }
+        };
+        
         model.addColumn("Name");
         model.addColumn("Brand");
         model.addColumn("Price");
@@ -501,14 +510,81 @@ public class UIManager extends JFrame {
 
     private void openProcessOrderFrame(ActionEvent e) {
         JFrame processOrderFrame = new JFrame("Process Order");
-        // Add components for processing an order
-        // Example: JTextFields, JLabels, JButtons, etc.
-        // Example: processOrderFrame.add(new JLabel("Customer Name"));
-        // Example: processOrderFrame.add(new JTextField());
-        processOrderFrame.setSize(getScreenWidth(), getScreenHeight());
+        JPanel panel = new JPanel(new BorderLayout());
+
+        // Get the list of products from the database
+        List<Product> products = database.getProductList();
+
+        // Create a table model to display product information
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Name");
+        model.addColumn("Brand");
+        model.addColumn("Price");
+        model.addColumn("Quantity");
+        model.addColumn("Size");
+        model.addColumn("Color");
+        model.addColumn("Material");
+        model.addColumn("Gender");
+        for (Product product : products) {
+            model.addRow(new Object[]{
+                    product.getName(),
+                    product.getBrand(),
+                    product.getPrice(),
+                    product.getQuantity(),
+                    product.getSize(),
+                    product.getColor(),
+                    product.getMaterial(),
+                    product.getGender()
+            });
+        }
+
+        // Create a table with the product information
+        JTable table = new JTable(model);
+
+        // Set the table to non-editable
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.setDefaultEditor(table.getColumnClass(i), null);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Create a button to process the order
+        JButton processButton = new JButton("Process Order");
+        processButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Get the quantity of the selected product
+                    int quantity = (int) table.getValueAt(selectedRow, 3);
+                    // If quantity is greater than 0, decrease it by 1 and update the table
+                    if (quantity > 0) {
+                        table.setValueAt(quantity - 1, selectedRow, 3);
+                        // Update the quantity in the database
+                        String productName = (String) table.getValueAt(selectedRow, 0);
+                        database.processOrder(productName, 1);
+                    } else {
+                        JOptionPane.showMessageDialog(processOrderFrame, "Product is currently out of stock.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(processOrderFrame, "Please select a product to order.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Add components to the panel
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(processButton, BorderLayout.SOUTH);
+
+        // Add the panel to the frame
+        processOrderFrame.getContentPane().add(panel);
+
+        // Set frame properties
+        processOrderFrame.setSize(600, 300);
+        processOrderFrame.setLocationRelativeTo(null);
         processOrderFrame.setVisible(true);
     }
-
+        
     private void logout(ActionEvent e) {
     	// Remove login panel
         getContentPane().removeAll();
@@ -516,19 +592,6 @@ public class UIManager extends JFrame {
         // Create and add main panel
         createLoginPanel();
         getContentPane().add(loginPanel, BorderLayout.CENTER);
-
-        // Repaint the frame
-        //revalidate();
-        //repaint();
-    	
-    	
-    	
-    	
-    	
-    	//dispose();
-    	
-    	
-    
 
         setLocationRelativeTo(null);
         setVisible(true);
