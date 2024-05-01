@@ -170,6 +170,10 @@ public class Database {
     	}
     	System.out.println("Product not found: " + productId);
     }
+
+	public List<Product> getProductList() {
+		return productList;
+	}
 }
    
 
