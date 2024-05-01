@@ -356,7 +356,16 @@ public class UIManager extends JFrame {
         JFrame updateProductFrame = new JFrame("Update Product");
         
         // Create a table model with columns for product attributes
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            private static final long serialVersionUID = 1L;
+
+			// Override the isCellEditable method to prevent cell editing
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable cell editing
+            }
+        };
+        
         model.addColumn("Name");
         model.addColumn("Brand");
         model.addColumn("Price");
