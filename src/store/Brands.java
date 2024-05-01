@@ -5,5 +5,5 @@ public enum Brands {
     ADIDAS,
     UNDER_ARMOUR,
     PUMA,
-    NEW_ERA;
+    NEW_ERA; // Representing Brand Names
 }

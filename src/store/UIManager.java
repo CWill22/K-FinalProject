@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
 
 public class UIManager extends JFrame {
     /**
@@ -351,40 +353,12 @@ public class UIManager extends JFrame {
     }
 
     private void openUpdateProductFrame(ActionEvent e) {
-        // Create a frame for updating products
         JFrame updateProductFrame = new JFrame("Update Product");
+        
+     // Create a table to display products
+        JTable productTable = new JTable();
 
-        // Get the list of products from the database
-        List<Product> productList = database.getProductList();
-
-        // Create a table model with column names and editable cells
-        DefaultTableModel model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return true; // Allow editing all cells
-            }
-        };
-        model.addColumn("Name");
-        model.addColumn("Brand");
-        model.addColumn("Price");
-        model.addColumn("Quantity");
-        model.addColumn("Size");
-        model.addColumn("Color");
-        model.addColumn("Gender");
-        model.addColumn("Material");
-
-        // Populate the table model with product data
-        for (Product product : productList) {
-            model.addRow(new Object[]{
-                    product.getName(), product.getBrand(), product.getPrice(), product.getQuantity(),
-                    product.getSize(), product.getColor(), product.getGender(), product.getMaterial()
-            });
-        }
-
-        // Create a table using the model
-        JTable productTable = new JTable(model);
-
-        // Create a scroll pane and add the table to it
+        // Create a scroll pane to hold the table
         JScrollPane scrollPane = new JScrollPane(productTable);
 
         // Add the scroll pane to the frame
@@ -395,27 +369,15 @@ public class UIManager extends JFrame {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Loop through each row in the table
-                for (int row = 0; row < model.getRowCount(); row++) {
-                    // Retrieve the updated product data from the table model
-                    String name = (String) model.getValueAt(row, 0);
-                    Brands brand = (Brands) model.getValueAt(row, 1);
-                    double price = (double) model.getValueAt(row, 2);
-                    int quantity = (int) model.getValueAt(row, 3);
-                    Size size = (Size) model.getValueAt(row, 4);
-                    Color color = (Color) model.getValueAt(row, 5);
-                    Gender gender = (Gender) model.getValueAt(row, 6);
-                    Material material = (Material) model.getValueAt(row, 7);
+                // Get the selected row and column
+                int selectedRow = productTable.getSelectedRow();
+                int selectedColumn = productTable.getSelectedColumn();
 
-                    // Construct the updated product object
-                    Product updatedProduct = new Product(name, brand, price, quantity, size, color, gender, material);
+                // Retrieve the selected product from the table model
+                Product selectedProduct = (Product) productTable.getValueAt(selectedRow, selectedColumn);
 
-                    // Update the product in the database
-                    database.updateProduct(name, updatedProduct);
-                }
-
-                // Refresh the table display
-                refreshTable(model);
+                // Show a dialog for updating the selected product
+                showUpdateProductDialog(selectedProduct);
             }
         });
 
@@ -423,20 +385,73 @@ public class UIManager extends JFrame {
         updateProductFrame.add(updateButton, BorderLayout.SOUTH);
 
         // Set frame properties and make it visible
-        updateProductFrame.setSize(800, 400);
+        updateProductFrame.setSize(getScreenWidth(), getScreenHeight());
         updateProductFrame.setVisible(true);
     }
 
-    // Helper method to refresh the table display after updating
-    private void refreshTable(DefaultTableModel model) {
-        model.setRowCount(0); // Clear existing rows
-        // Repopulate the table with updated data from the database
-        List<Product> productList = database.getProductList();
-        for (Product product : productList) {
-            model.addRow(new Object[]{
-                    product.getName(), product.getBrand(), product.getPrice(), product.getQuantity(),
-                    product.getSize(), product.getColor(), product.getGender(), product.getMaterial()
-            });
+    // Method to show a dialog for updating product details
+    private void showUpdateProductDialog(Product product) {
+        // Create text fields and combo boxes for each attribute of the product
+        JTextField nameField = new JTextField(product.getName());
+        JTextField priceField = new JTextField(String.valueOf(product.getPrice()));
+        JTextField quantityField = new JTextField(String.valueOf(product.getQuantity()));
+        JComboBox<Brands> brandComboBox = new JComboBox<>(Brands.values());
+        brandComboBox.setSelectedItem(product.getBrand());
+        JComboBox<Size> sizeComboBox = new JComboBox<>(Size.values());
+        sizeComboBox.setSelectedItem(product.getSize());
+        JComboBox<Color> colorComboBox = new JComboBox<>(Color.values());
+        colorComboBox.setSelectedItem(product.getColor());
+        JComboBox<Material> materialComboBox = new JComboBox<>(Material.values());
+        materialComboBox.setSelectedItem(product.getMaterial());
+        JComboBox<Gender> genderComboBox = new JComboBox<>(Gender.values());
+        genderComboBox.setSelectedItem(product.getGender());
+
+        // Create labels for each field
+        JLabel nameLabel = new JLabel("Name:");
+        JLabel brandLabel = new JLabel("Brand:");
+        JLabel priceLabel = new JLabel("Price:");
+        JLabel quantityLabel = new JLabel("Quantity:");
+        JLabel sizeLabel = new JLabel("Size:");
+        JLabel colorLabel = new JLabel("Color:");
+        JLabel materialLabel = new JLabel("Material:");
+        JLabel genderLabel = new JLabel("Gender:");
+
+        // Create a panel to hold the components
+        JPanel panel = new JPanel(new GridLayout(9, 2));
+
+        // Add components to the panel
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(brandLabel);
+        panel.add(brandComboBox);
+        panel.add(priceLabel);
+        panel.add(priceField);
+        panel.add(quantityLabel);
+        panel.add(quantityField);
+        panel.add(sizeLabel);
+        panel.add(sizeComboBox);
+        panel.add(colorLabel);
+        panel.add(colorComboBox);
+        panel.add(materialLabel);
+        panel.add(materialComboBox);
+        panel.add(genderLabel);
+        panel.add(genderComboBox);
+
+        // Show the dialog
+        int result = JOptionPane.showConfirmDialog(null, panel, "Update Product", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            // Update the product with the new values
+            product.setName(nameField.getText());
+            product.setBrand((Brands) brandComboBox.getSelectedItem());
+            product.setPrice(Double.parseDouble(priceField.getText()));
+            product.setQuantity(Integer.parseInt(quantityField.getText()));
+            product.setSize((Size) sizeComboBox.getSelectedItem());
+            product.setColor((Color) colorComboBox.getSelectedItem());
+            product.setMaterial((Material) materialComboBox.getSelectedItem());
+            product.setGender((Gender) genderComboBox.getSelectedItem());
+            
+            // Update the product in the database
+            // database.updateProduct(selectedProductId, product); // Assuming you have a database object
         }
     }
 
@@ -451,8 +466,29 @@ public class UIManager extends JFrame {
     }
 
     private void logout(ActionEvent e) {
-        dispose();
-        new UIManager(); //Go back to the login page when the logout button is clicked
+    	// Remove login panel
+        getContentPane().removeAll();
+        
+        // Create and add main panel
+        createLoginPanel();
+        getContentPane().add(loginPanel, BorderLayout.CENTER);
+
+        // Repaint the frame
+        //revalidate();
+        //repaint();
+    	
+    	
+    	
+    	
+    	
+    	//dispose();
+    	
+    	
+    
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+        
     }
     
     // Get the screen width
