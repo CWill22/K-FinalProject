@@ -1,20 +1,18 @@
 package store;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class UIManager extends JFrame {
     /**
@@ -492,22 +490,48 @@ public class UIManager extends JFrame {
         }
     }
     
-    @SuppressWarnings("unchecked") // Suppress unchecked warning
     private void loadUserMapFromFile() {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
-            userMap = (HashMap<String, String>) inputStream.readObject();
+        try {
+        	// Open the input stream for reading the file from resources
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("resources/userMap.dat");
+
+            // Create an output stream to write to a file
+            OutputStream outputStream = new FileOutputStream("userMap.dat");
+
+            // Read from input stream and write to output stream
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            // Close streams
+            inputStream.close();
+            outputStream.close();
+
+            // Inform user
             System.out.println("User map loaded successfully.");
         } catch (FileNotFoundException e) {
             System.err.println("File not found: userMap.dat");
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             System.err.println("Error reading user map file: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     private void saveUserMapToFile() {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userMap.dat"))) {
+        try {
+        	// Create an output stream to write objects to a file
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userMap.dat"));
+
+            // Write the user map object to the file
             outputStream.writeObject(userMap);
+
+            // Close the output stream
+            outputStream.close();
+
+            // Inform user
+            System.out.println("User map saved successfully.");
         } catch (IOException e) {
             System.err.println("Error writing user map file: " + e.getMessage());
             e.printStackTrace();
