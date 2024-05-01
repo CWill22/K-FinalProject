@@ -169,7 +169,6 @@ public class Database {
     		}
     	}
     	System.out.println("Product not found: " + productId);
->>>>>>> branch 'main' of https://github.com/CWill22/K-FinalProject
     }
 }
    
