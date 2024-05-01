@@ -494,9 +494,10 @@ public class UIManager extends JFrame {
     }
     
     @SuppressWarnings("unchecked")
-	private void loadUserMapFromFile() {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
-            userMap = (HashMap<String, String>) inputStream.readObject();
+    private void loadUserMapFromFile() {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("resources/userMap.dat");
+             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
+            userMap = (HashMap<String, String>) objectInputStream.readObject();
             System.out.println("User map loaded successfully.");
         } catch (FileNotFoundException e) {
             System.err.println("File not found: userMap.dat");
@@ -504,15 +505,15 @@ public class UIManager extends JFrame {
             System.err.println("Error reading user map file: " + e.getMessage());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-        	System.err.println("Class not found: " + e.getMessage());
+            System.err.println("Class not found: " + e.getMessage());
         }
-        
     }
-
+    
+    // Modify the file path for saving user map to file
     private void saveUserMapToFile() {
         try {
-        	// Create an output stream to write objects to a file
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userMap.dat"));
+            // Create an output stream to write objects to a file
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File("resources/userMap.dat")));
 
             // Write the user map object to the file
             outputStream.writeObject(userMap);
