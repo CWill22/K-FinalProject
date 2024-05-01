@@ -511,18 +511,18 @@ public class UIManager extends JFrame {
     	}
     }
 
- // Modify saveUserMapToFile method
- private void saveUserMapToFile() {
-     try {
-         ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(USER_MAP_FILE_PATH));
-         outputStream.writeObject(userMap);
-         outputStream.close();
-         System.out.println("User map saved successfully.");
-     } catch (IOException e) {
-         System.err.println("Error writing user map file: " + e.getMessage());
-         e.printStackTrace();
-     }
- }
+    // Modify saveUserMapToFile method
+    private void saveUserMapToFile() {
+    	try {
+    		ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(USER_MAP_FILE_PATH));
+    		outputStream.writeObject(userMap);
+    		outputStream.close();
+    		System.out.println("User map saved successfully.");
+    	} catch (IOException e) {
+    		System.err.println("Error writing user map file: " + e.getMessage());
+    		e.printStackTrace();
+    	}
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
