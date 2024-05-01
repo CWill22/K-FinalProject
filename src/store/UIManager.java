@@ -495,6 +495,7 @@ public class UIManager extends JFrame {
     private void loadUserMapFromFile() {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
             userMap = (HashMap<String, String>) inputStream.readObject();
+            System.out.println("User map loaded successfully.");
         } catch (FileNotFoundException e) {
             System.err.println("File not found: userMap.dat");
         } catch (IOException | ClassNotFoundException e) {
