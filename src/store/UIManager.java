@@ -348,7 +348,7 @@ public class UIManager extends JFrame {
     	
     	JFrame listProductsFrame = new JFrame("List Products");
     	listProductsFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-        listProductsFrame.setSize(getScreenWidth(), getScreenHeight());
+        listProductsFrame.setSize(1024, 768);
         listProductsFrame.setVisible(true);
     }
 
