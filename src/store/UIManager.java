@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +29,8 @@ public class UIManager extends JFrame {
 
     public UIManager() {
     	    	
+    	initializeUserMapFile();
+    	loadUserMapFromFile();
         setTitle("Mizzou Clothing Management System"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(866, 500);
@@ -63,7 +66,9 @@ public class UIManager extends JFrame {
         JLabel label_1 = new JLabel("Password: ");
         label_1.setHorizontalAlignment(SwingConstants.CENTER);
         loginPanel.add(label_1);
-        loginPanel.add(passwordField); //Add the password field to the loginPanel
+        loginPanel.add(passwordField);//Add the password field to the loginPanel
+        JLabel spacingLabel = new JLabel(" ");
+        loginPanel.add(spacingLabel);
         loginPanel.add(loginButton);
         loginPanel.add(registerButton);
 
@@ -105,7 +110,21 @@ public class UIManager extends JFrame {
         		}
         	}
         });
+        
+        // Add a button to delete an account
+        JButton deleteButton = new JButton("Delete Account");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = JOptionPane.showInputDialog(UIManager.this, "Enter username to delete:");
+                if (username != null && !username.isEmpty()) {
+                    deleteAccount(username);
+                }
+            }
+        });
+        loginPanel.add(deleteButton);
     }
+    
     
     private boolean authenticate(String username, String password) {
         String storedPassword = userMap.get(username);
@@ -114,6 +133,16 @@ public class UIManager extends JFrame {
 
     private boolean isUsernameAvailable(String username) {
         return !userMap.containsKey(username);
+    }
+    
+    private void deleteAccount(String username) {
+        if (userMap.containsKey(username)) {
+            userMap.remove(username);
+            saveUserMapToFile(); // Save updated user map to file
+            JOptionPane.showMessageDialog(UIManager.this, "Account deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(UIManager.this, "Username not found", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void switchToMainPanel() {
@@ -450,24 +479,38 @@ public class UIManager extends JFrame {
         return Toolkit.getDefaultToolkit().getScreenSize().height;
     }
     
+    private static void initializeUserMapFile() {
+        File userMapFile = new File("userMap.dat");
+        try {
+            if (!userMapFile.exists()) {
+                userMapFile.createNewFile();
+                System.out.println("User map file created successfully.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error creating user map file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    @SuppressWarnings("unchecked") // Suppress unchecked warning
     private void loadUserMapFromFile() {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
             userMap = (HashMap<String, String>) inputStream.readObject();
+            System.out.println("User map loaded successfully.");
         } catch (FileNotFoundException e) {
-            // Ignore if file not found
+            System.err.println("File not found: userMap.dat");
         } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error reading user map file: " + e.getMessage());
             e.printStackTrace();
-            // Handle other exceptions
         }
     }
 
-    // Save user map to file
     private void saveUserMapToFile() {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("userMap.dat"))) {
             outputStream.writeObject(userMap);
         } catch (IOException e) {
+            System.err.println("Error writing user map file: " + e.getMessage());
             e.printStackTrace();
-            // Handle exceptions
         }
     }
 
