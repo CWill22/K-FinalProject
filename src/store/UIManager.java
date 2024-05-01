@@ -467,6 +467,7 @@ public class UIManager extends JFrame {
 
     private void logout(ActionEvent e) {
         dispose();
+        new UIManager(); //Go back to the login page when the logout button is clicked
     }
     
     // Get the screen width
