@@ -1,9 +1,6 @@
 package store;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import store.Database.OrderItem;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -572,6 +569,7 @@ public class UIManager extends JFrame {
 
         // Create a button to process the order
         JButton processButton = new JButton("Process Order");
+        JLabel totalCostLabel = new JLabel("Total Cost: $0.0");
         processButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -589,6 +587,7 @@ public class UIManager extends JFrame {
                         orderItems.add(new OrderItem(productName, 1));
                         
                         double totalCost = calculateTotalOrderCost(orderItems);
+                        totalCostLabel.setText("Total Cost: $" + totalCost);
                         System.out.println("Total Order Cost: " + totalCost);
                     } else {
                         JOptionPane.showMessageDialog(processOrderFrame, "Product is currently out of stock.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -602,6 +601,7 @@ public class UIManager extends JFrame {
         // Add components to the panel
         panel.add(scrollPane, BorderLayout.CENTER);
         panel.add(processButton, BorderLayout.SOUTH);
+        panel.add(totalCostLabel, BorderLayout.NORTH);
 
         // Add the panel to the frame
         processOrderFrame.getContentPane().add(panel);
