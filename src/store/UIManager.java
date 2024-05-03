@@ -1,6 +1,9 @@
 package store;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import store.Database.OrderItem;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.io.InputStream;
@@ -26,9 +30,11 @@ public class UIManager extends JFrame {
     private JPasswordField passwordField; //Creates a field for passwords
     private Database database;
     private HashMap<String, String> userMap;
+    private List<OrderItem> orderItems;
 
     public UIManager() {
     	    	
+    	orderItems = new ArrayList<>();
     	initializeUserMapFile();
     	loadUserMapFromFile();
         setTitle("Mizzou Clothing Management System"); 
@@ -545,7 +551,7 @@ public class UIManager extends JFrame {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.setDefaultEditor(table.getColumnClass(i), null);
         }
-
+        
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Create a button to process the order
@@ -563,6 +569,11 @@ public class UIManager extends JFrame {
                         // Update the quantity in the database
                         String productName = (String) table.getValueAt(selectedRow, 0);
                         database.processOrder(productName, 1);
+                        
+                        orderItems.add(new OrderItem(productName, 1));
+                        
+                        double totalCost = calculateTotalOrderCost(orderItems);
+                        System.out.println("Total Order Cost: " + totalCost);
                     } else {
                         JOptionPane.showMessageDialog(processOrderFrame, "Product is currently out of stock.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -607,6 +618,59 @@ public class UIManager extends JFrame {
     private int getScreenHeight() {
         return Toolkit.getDefaultToolkit().getScreenSize().height;
     }
+    
+ // Method to calculate the total cost of an order based on selected products
+ 	public double calculateTotalOrderCost(List<OrderItem> orderItems) {
+ 		double totalCost = 0.0;
+ 		
+ 		for (OrderItem orderItem : orderItems) {
+ 			String productId = orderItem.getProductId();
+ 			int quantitiy = orderItem.getQuantity();
+ 			
+ 			// Find the product in the inventory
+ 			Product product = getProductById(productId);
+ 			
+ 			if (product != null) {
+ 				// Calculate the subtotal for the order item
+ 				double subtotal = product.getPrice() * quantitiy;
+ 				totalCost += subtotal;
+ 			} else {
+ 				System.out.println("Product not found: " + productId);
+ 			}
+ 		}
+ 		
+ 		return totalCost;
+ 	}
+ 	
+ 	// Helper method to retrieve a product by its ID
+ 	private Product getProductById(String productId) {
+ 		List<Product> products = database.getProductList();
+ 		for (Product product : products) {
+ 			if (product.getName().equals(productId)) {
+ 				return product;
+ 			}
+ 		}
+ 		return null; // Product not found
+ 	}
+ 	
+ // Class representing an item in an order
+ 	public class OrderItem {
+ 		private String productId;
+ 		private int quantity;
+ 		
+ 		public OrderItem(String productId, int quantity) {
+ 			this.productId = productId;
+ 			this.quantity = quantity;
+ 		}
+ 		
+ 		public String getProductId() {
+ 			return productId;
+ 		}
+ 		
+ 		public int getQuantity() {
+ 			return quantity;
+ 		}
+ 	}
     
     private static void initializeUserMapFile() {
         File userMapFile = new File("userMap.dat");
@@ -657,7 +721,7 @@ public class UIManager extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+    	SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new UIManager();
