@@ -708,35 +708,6 @@ public class UIManager extends JFrame {
  		}
  	}
     
-    private static void initializeUserMapFile() {
-        File userMapFile = new File("userMap.dat");
-        try {
-            if (!userMapFile.exists()) {
-                userMapFile.createNewFile();
-                System.out.println("User map file created successfully.");
-            }
-        } catch (IOException e) {
-            System.err.println("Error creating user map file: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    
-    @SuppressWarnings("unchecked")
-	private void loadUserMapFromFile() {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("userMap.dat"))) {
-            userMap = (HashMap<String, String>) inputStream.readObject();
-            System.out.println("User map loaded successfully.");
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: userMap.dat");
-        } catch (IOException e) {
-            System.err.println("Error reading user map file: " + e.getMessage());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-        	System.err.println("Class not found: " + e.getMessage());
-        }
-        
-    }
-
     private void saveUserMapToFile() {
         try {
         	// Create an output stream to write objects to a file
