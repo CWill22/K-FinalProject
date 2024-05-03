@@ -103,7 +103,7 @@ public class UIManager extends JFrame {
         		String password = new String(passwordField.getPassword());
 
         		// Check if the username is available
-        		if (isUsernameAvailable(username)) {
+        		if (createAccount(username, password)) {
         			// Add the new user to the list
         			userMap.put(username, password);
         			
@@ -115,7 +115,23 @@ public class UIManager extends JFrame {
         			JOptionPane.showMessageDialog(UIManager.this, "Username already exists", "Registration Failed", JOptionPane.ERROR_MESSAGE);
         		}
         	}
+
+			private boolean createAccount(String username, String password) {
+				// Check if the username is available
+	        	if (isUsernameAvailable(username)) {
+	        		// Add the new user to the list
+	        		userMap.put(username, password);
+	        		
+	        		saveUserMapToFile();
+	        		return true;
+	        	} else {
+	        		return false;
+	        		
+	        	}
+			}
         });
+        
+      
         
         // Add a button to delete an account
         JButton deleteButton = new JButton("Delete Account");
