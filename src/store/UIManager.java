@@ -102,10 +102,6 @@ public class UIManager extends JFrame {
         		// Check if the username is available
         		if (createAccount(username, password)) {
         			// Add the new user to the list
-        			userMap.put(username, password);
-        			
-        			saveUserMapToFile();
-        			
         			JOptionPane.showMessageDialog(UIManager.this, "Registration successful", "Success", JOptionPane.INFORMATION_MESSAGE);
         		} else {
         			// Show error message if the username is not available
@@ -364,9 +360,33 @@ public class UIManager extends JFrame {
         
         JScrollPane scrollPane = new JScrollPane(table);
         
-    	
+     // Create a button to delete a product
+        JButton deleteButton = new JButton("Delete Product");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Get the name of the product in the selected row
+                    String productName = (String) table.getValueAt(selectedRow, 0);
+                    // Remove the product from the database
+                    database.removeProduct(productName);
+                    // Remove the selected row from the table
+                    model.removeRow(selectedRow);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a product to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+     // Create a panel to hold the table and delete button
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(deleteButton, BorderLayout.SOUTH);
+        
+        
     	JFrame listProductsFrame = new JFrame("List Products");
-    	listProductsFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+    	listProductsFrame.getContentPane().add(panel, BorderLayout.CENTER);
         listProductsFrame.setSize(1024, 768);
         listProductsFrame.setVisible(true);
     }
