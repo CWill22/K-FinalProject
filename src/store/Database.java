@@ -21,13 +21,15 @@ public class Database {
     // Constructor to initialize the database
     public Database() {
         this.productList = new ArrayList<>();
+        initializeDatabase() ; // Initialize the database
     }
 
     // Initialize the database or data files like XML or JSON
     public void initializeDatabase() {
         try {
+        	System.out.println("Loading database...");
             // Load XML file
-            File xmlFile = new File("clothinginventory.xml");
+            File xmlFile = new File("src/store/clothingInventory.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
@@ -173,58 +175,6 @@ public class Database {
 
 	public List<Product> getProductList() {
 		return productList;
-	}
-	
-	// Class representing an item in an order
-	public class OrderItem {
-		private String productId;
-		private int quantity;
-		
-		public OrderItem(String productId, int quantity) {
-			this.productId = productId;
-			this.quantity = quantity;
-		}
-		
-		public String getProductId() {
-			return productId;
-		}
-		
-		public int getQuantity() {
-			return quantity;
-		}
-	}
-	
-	// Method to calculate the total cost of an order based on selected products
-	public double calculateTotalOrderCost(List<OrderItem> orderItems) {
-		double totalCost = 0.0;
-		
-		for (OrderItem orderItem : orderItems) {
-			String productId = orderItem.getProductId();
-			int quantitiy = orderItem.getQuantity();
-			
-			// Find the product in the inventory
-			Product product = getProductById(productId);
-			
-			if (product != null) {
-				// Calculate the subtotal for the order item
-				double subtotal = product.getPrice() * quantitiy;
-				totalCost += subtotal;
-			} else {
-				System.out.println("Product not found: " + productId);
-			}
-		}
-		
-		return totalCost;
-	}
-	
-	// Helper method to retrieve a product by its ID
-	private Product getProductById(String productId) {
-		for (Product product : productList) {
-			if (product.getName().equals(productId)) {
-				return product;
-			}
-		}
-		return null; // Product not found
 	}
 	
 }

@@ -10,19 +10,19 @@
     <Type>Short</Type>
     
     
-    <Brand>New Era</Brand>
+    <Brand>NEW_ERA</Brand>
     
     
-    <Color>White</Color>
+    <Color>WHITE</Color>
     
     
     <Size>XL</Size>
     
     
-    <Material>Polyester</Material>
+    <Material>POLYESTER</Material>
     
     
-    <Gender>Unisex</Gender>
+    <Gender>UNISEX</Gender>
     
     
     <Price>36</Price>
@@ -41,19 +41,19 @@
     <Type>TShirt</Type>
     
     
-    <Brand>Nike</Brand>
+    <Brand>NIKE</Brand>
     
     
-    <Color>Gold</Color>
+    <Color>GOLD</Color>
     
     
     <Size>S</Size>
     
     
-    <Material>Cotton</Material>
+    <Material>COTTON</Material>
     
     
-    <Gender>Women</Gender>
+    <Gender>WOMEN</Gender>
     
     
     <Price>54</Price>
@@ -72,19 +72,19 @@
     <Type>Sweatpant</Type>
     
     
-    <Brand>Under Armour</Brand>
+    <Brand>UNDER_ARMOUR</Brand>
     
     
-    <Color>White</Color>
+    <Color>WHITE</Color>
     
     
     <Size>XS</Size>
     
     
-    <Material>Polyester</Material>
+    <Material>POLYESTER</Material>
     
     
-    <Gender>Men</Gender>
+    <Gender>MEN</Gender>
     
     
     <Price>51</Price>
@@ -103,19 +103,19 @@
     <Type>Sweatshirt</Type>
     
     
-    <Brand>Nike</Brand>
+    <Brand>NIKE</Brand>
     
     
-    <Color>Black</Color>
+    <Color>BLACK</Color>
     
     
     <Size>S</Size>
     
     
-    <Material>Cotton</Material>
+    <Material>COTTON</Material>
     
     
-    <Gender>Unisex</Gender>
+    <Gender>UNISEX</Gender>
     
     
     <Price>35</Price>
@@ -134,19 +134,19 @@
     <Type>TShirt</Type>
     
     
-    <Brand>Nike</Brand>
+    <Brand>NIKE</Brand>
     
     
-    <Color>White</Color>
+    <Color>WHITE</Color>
     
     
     <Size>L</Size>
     
     
-    <Material>Cotton</Material>
+    <Material>COTTON</Material>
     
     
-    <Gender>Women</Gender>
+    <Gender>WOMEN</Gender>
     
     
     <Price>22</Price>
@@ -165,19 +165,19 @@
     <Type>Sock</Type>
     
     
-    <Brand>New Era</Brand>
+    <Brand>NEW_ERA</Brand>
     
     
-    <Color>White</Color>
+    <Color>WHITE</Color>
     
     
     <Size>XS</Size>
     
     
-    <Material>Polyester</Material>
+    <Material>POLYESTER</Material>
     
     
-    <Gender>Men</Gender>
+    <Gender>MEN</Gender>
     
     
     <Price>17</Price>
@@ -196,19 +196,19 @@
     <Type>Crewneck</Type>
     
     
-    <Brand>Nike</Brand>
+    <Brand>ADIDAS</Brand>
     
     
-    <Color>Black</Color>
+    <Color>BLACK</Color>
     
     
     <Size>XXL</Size>
     
     
-    <Material>Cotton</Material>
+    <Material>COTTON</Material>
     
     
-    <Gender>Women</Gender>
+    <Gender>WOMEN</Gender>
     
     
     <Price>16</Price>
@@ -217,224 +217,6 @@
     <QuantityInStock>18</QuantityInStock>
   </Product>
   
-  
-  <Product>
-    
-    
-    <Name>Mizzou Crewneck</Name>
-    
-    
-    <Type>Crewneck</Type>
-    
-    
-    <Brand>Under Armour</Brand>
-    
-    
-    <Color>Gold</Color>
-    
-    
-    <Size>Adjustable</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Unisex</Gender>
-    
-    
-    <Price>20</Price>
-    
-  
-    <QuantityInStock>21</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sweatshirt</Name>
-    
-    
-    <Type>Sweatshirt</Type>
-    
-    
-    <Brand>Under Armour</Brand>
-    
-    
-    <Color>Black and Gold</Color>
-    
-    
-    <Size>M</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Men</Gender>
-    
-    
-    <Price>57</Price>
-    
-  
-    <QuantityInStock>85</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou TShirt</Name>
-    
-    
-    <Type>TShirt</Type>
-    
-    
-    <Brand>Adidas</Brand>
-    
-    
-    <Color>Black</Color>
-    
-    
-    <Size>XXL</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Women</Gender>
-    
-    
-    <Price>31</Price>
-    
-  
-    <QuantityInStock>47</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sweatpant</Name>
-    
-    
-    <Type>Sweatpant</Type>
-    
-    
-    <Brand>Puma</Brand>
-    
-    
-    <Color>Black and Gold</Color>
-    
-    
-    <Size>Adjustable</Size>
-    
-    
-    <Material>Polyester</Material>
-    
-    
-    <Gender>Women</Gender>
-    
-    
-    <Price>18</Price>
-    
-  
-    <QuantityInStock>57</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Crewneck</Name>
-    
-    
-    <Type>Crewneck</Type>
-    
-    
-    <Brand>Under Armour</Brand>
-    
-    
-    <Color>White</Color>
-    
-    
-    <Size>L</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Unisex</Gender>
-    
-    
-    <Price>21</Price>
-    
-  
-    <QuantityInStock>24</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Short</Name>
-    
-    
-    <Type>Short</Type>
-    
-    
-    <Brand>Under Armour</Brand>
-    
-    
-    <Color>Gold</Color>
-    
-    
-    <Size>XL</Size>
-    
-    
-    <Material>Polyester</Material>
-    
-    
-    <Gender>Men</Gender>
-    
-    
-    <Price>59</Price>
-    
-  
-    <QuantityInStock>39</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Crewneck</Name>
-    
-    
-    <Type>Crewneck</Type>
-    
-    
-    <Brand>New Era</Brand>
-    
-    
-    <Color>Black</Color>
-    
-    
-    <Size>M</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Women</Gender>
-    
-    
-    <Price>39</Price>
-    
-  
-    <QuantityInStock>14</QuantityInStock>
-  </Product>
-  
-  
   <Product>
     
     
@@ -444,19 +226,19 @@
     <Type>Sock</Type>
     
     
-    <Brand>Nike</Brand>
+    <Brand>NIKE</Brand>
     
     
-    <Color>Black and Gold</Color>
+    <Color>BLACK_AND_GOLD</Color>
     
     
-    <Size>One Size</Size>
+    <Size>ONE_SIZE</Size>
     
     
-    <Material>Polyester</Material>
+    <Material>WOOL</Material>
     
     
-    <Gender>Unisex</Gender>
+    <Gender>UNISEX</Gender>
     
     
     <Price>17</Price>
@@ -464,162 +246,6 @@
   
     <QuantityInStock>15</QuantityInStock>
   </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sweatshirt</Name>
-    
-    
-    <Type>Sweatshirt</Type>
-    
-    
-    <Brand>New Era</Brand>
-    
-    
-    <Color>White</Color>
-    
-    
-    <Size>One Size</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Unisex</Gender>
-    
-    
-    <Price>57</Price>
-    
-  
-    <QuantityInStock>70</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sweatshirt</Name>
-    
-    
-    <Type>Sweatshirt</Type>
-    
-    
-    <Brand>Nike</Brand>
-    
-    
-    <Color>Black and Gold</Color>
-    
-    
-    <Size>L</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Unisex</Gender>
-    
-    
-    <Price>53</Price>
-    
-  
-    <QuantityInStock>68</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sock</Name>
-    
-    
-    <Type>Sock</Type>
-    
-    
-    <Brand>Under Armour</Brand>
-    
-    
-    <Color>Gold</Color>
-    
-    
-    <Size>XXL</Size>
-    
-    
-    <Material>Polyester</Material>
-    
-    
-    <Gender>Women</Gender>
-    
-    
-    <Price>25</Price>
-    
-  
-    <QuantityInStock>92</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sweatshirt</Name>
-    
-    
-    <Type>Sweatshirt</Type>
-    
-    
-    <Brand>Under Armour</Brand>
-    
-    
-    <Color>Black and Gold</Color>
-    
-    
-    <Size>XXL</Size>
-    
-    
-    <Material>Cotton</Material>
-    
-    
-    <Gender>Women</Gender>
-    
-    
-    <Price>32</Price>
-    
-  
-    <QuantityInStock>61</QuantityInStock>
-  </Product>
-  
-  
-  <Product>
-    
-    
-    <Name>Mizzou Sock</Name>
-    
-    
-    <Type>Sock</Type>
-    
-    
-    <Brand>Nike</Brand>
-    
-    
-    <Color>Black and Gold</Color>
-    
-    
-    <Size>L</Size>
-    
-    
-    <Material>Polyester</Material>
-    
-    
-    <Gender>Unisex</Gender>
-    
-    
-    <Price>39</Price>
-    
-  
-    <QuantityInStock>38</QuantityInStock>
-  </Product>
-  
 
 </Project>
 
