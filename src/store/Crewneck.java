@@ -18,4 +18,3 @@ public class Crewneck extends Product {
         System.out.println("Gender: " + getGender());
     }
 }
-
