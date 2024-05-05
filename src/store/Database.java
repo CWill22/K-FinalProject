@@ -143,23 +143,38 @@ public class Database {
                 product.getGender().equals(filterCriteria.getGender());
     }
 
+    // Method to create a new product and add it to the inventory
     public void createProduct(Product productData) {
-	    productList.add(productData);
+    	if (productData != null) {
+    		// Add the product to the inventory
+    		productList.add(productData);
+    		System.out.println("Product '" + productData.getName() + "' added successfully.");
+    	} else {
+    		System.out.println("Null product data provided. Cannot add product.");
+    	}
     }
 
     public void deleteProduct(String productId) {
         productList.removeIf(product -> product.getName().equals(productId));
     }
 
+    // Method to list all the products in the inventory
     public List<Product> listProducts() {
+    	// Check if the inventory is empty
+    	if (productList.isEmpty()) {
+            System.out.println("No products available in inventory.");
+        }
+    	// Return the list of products
     	return productList;
     }
     
-    
+    // Method to process an order for a specified product and quantity
     public void processOrder(String productId, int quantity) {
+    	// Iterate through the products in the inventory
     	for (Product product : productList) {
+    		// Check productId matches
     		if (product.getName().equals(productId)) {
-    			
+    			// check if quantity is in stock 
     			if (product.getQuantity() >= quantity) {
     				
     				product.setQuantity(product.getQuantity() - quantity);
@@ -170,9 +185,11 @@ public class Database {
     			return;
     		}
     	}
+    	// If the product is not found in the inventory
     	System.out.println("Product not found: " + productId);
     }
 
+    // Method to retrieve the list of products in the inventory
 	public List<Product> getProductList() {
 		return productList;
 	}
