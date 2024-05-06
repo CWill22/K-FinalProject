@@ -13,29 +13,27 @@ import java.util.List;
 
 
 public class UIManager extends JFrame {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    
+
+    private static final long serialVersionUID = 1L; //Serial version ID
     private JPanel loginPanel; //Creates the loginPanel
     private JTextField usernameField; //Creates a field for usernames
     private JPasswordField passwordField; //Creates a field for passwords
     private Database database;
-    private HashMap<String, String> userMap;
+    private HashMap<String, String> userMap; //Creates a map to store users
     private List<OrderItem> orderItems;
 
     public UIManager() {
     	    	
-    	orderItems = new ArrayList<>();
-    	//initializeUserMapFile();
-    	//loadUserMapFromFile();
+    	orderItems = new ArrayList<>(); // Initialize the list of order items
+    	
         setTitle("Mizzou Clothing Management System"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(866, 500);
         getContentPane().setLayout(new BorderLayout());
         
         database = new Database();
-        userMap = new HashMap<>();
+        userMap = new HashMap<>(); // Initialize the user map
 
         // Create the login panel
         createLoginPanel();
@@ -48,7 +46,7 @@ public class UIManager extends JFrame {
     }
 
     private void createLoginPanel() {
-        loginPanel = new JPanel(new GridLayout(0, 1));
+        loginPanel = new JPanel(new GridLayout(0, 1)); //Creates the loginPanel
         usernameField = new JTextField(); //Creates the field for users to input a user name
         usernameField.setHorizontalAlignment(SwingConstants.CENTER);
         passwordField = new JPasswordField(); //Creates the field for users to input a password
@@ -73,6 +71,7 @@ public class UIManager extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	// Retrieve the username and password entered by the user
             	String username = usernameField.getText();
             	String password = new String(passwordField.getPassword());
 
@@ -91,6 +90,7 @@ public class UIManager extends JFrame {
         registerButton.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
+        		// Retrieve the username and password entered by the user
         		String username = usernameField.getText();
         		String password = new String(passwordField.getPassword());
 
@@ -127,6 +127,7 @@ public class UIManager extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = JOptionPane.showInputDialog(UIManager.this, "Enter username to delete:");
+                // Check if the username is not null or empty
                 if (username != null && !username.isEmpty()) {
                     deleteAccount(username);
                 }
@@ -136,15 +137,18 @@ public class UIManager extends JFrame {
     }
     
     
+    // Method to authenticate a user based on username and password
     private boolean authenticate(String username, String password) {
         String storedPassword = userMap.get(username);
         return storedPassword != null && storedPassword.equals(password);
     }
 
+    // Method to check if a username is available
     private boolean isUsernameAvailable(String username) {
         return !userMap.containsKey(username);
     }
     
+    // Method to delete an account based on the username
     private void deleteAccount(String username) {
         if (userMap.containsKey(username)) {
             userMap.remove(username);
@@ -155,6 +159,7 @@ public class UIManager extends JFrame {
         }
     }
 
+    // Method to switch to the main panel, which contains the main functionality like List Products, Add Product, etc.
     private void switchToMainPanel() {
         // Remove login panel
         getContentPane().removeAll();
@@ -167,7 +172,8 @@ public class UIManager extends JFrame {
         revalidate();
         repaint();
     }
-
+    
+    // Method to create the main panel with buttons for different actions
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel(new GridLayout(5, 1));
 
@@ -181,12 +187,14 @@ public class UIManager extends JFrame {
         return mainPanel;
     }
 
+    // Method to create a button with the specified text and action listener
     private JButton createButton(String text, ActionListener actionListener) {
         JButton button = new JButton(text);
         button.addActionListener(actionListener);
         return button;
     }
 
+    // Method to open a frame for adding a new product
     private void openAddProductFrame(ActionEvent e) {
         JFrame addProductFrame = new JFrame("Add Product");
        
@@ -200,6 +208,7 @@ public class UIManager extends JFrame {
         JComboBox<Material> materialComboBox = new JComboBox<>(Material.values());
         JComboBox<Gender> genderComboBox = new JComboBox<>(Gender.values());
         JComboBox<String> productTypeComboBox = new JComboBox<>();
+        // Add product types to the combo box
         productTypeComboBox.addItem("Crewneck");
         productTypeComboBox.addItem("TShirt");
         productTypeComboBox.addItem("Short");
@@ -325,10 +334,12 @@ public class UIManager extends JFrame {
 
     private void openListProductsFrame(ActionEvent e) {
         
+    	// Retrieve the list of products from the database
     	List<Product> products = database.getProductList();
         
         DefaultTableModel model = new DefaultTableModel();
         
+        // Add columns to the table model
         model.addColumn("Name");
         model.addColumn("Brand");
         model.addColumn("Color");
@@ -351,6 +362,7 @@ public class UIManager extends JFrame {
         	});
         }
         
+        // Create a JTable with the table model
         JTable table = new JTable(model);
         
         JScrollPane scrollPane = new JScrollPane(table);
@@ -374,12 +386,13 @@ public class UIManager extends JFrame {
             }
         });
         
-     // Create a panel to hold the table and delete button
+        // Create a panel to hold the table and delete button
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(scrollPane, BorderLayout.CENTER);
         panel.add(deleteButton, BorderLayout.SOUTH);
         
         
+        // Create a frame to display the list of products
     	JFrame listProductsFrame = new JFrame("List Products");
     	listProductsFrame.getContentPane().add(panel, BorderLayout.CENTER);
         listProductsFrame.setSize(1024, 768);
@@ -399,7 +412,7 @@ public class UIManager extends JFrame {
                 return false; // Disable cell editing
             }
         };
-        
+        // Add columns to the table model
         model.addColumn("Name");
         model.addColumn("Brand");
         model.addColumn("Price");
@@ -543,6 +556,7 @@ public class UIManager extends JFrame {
     }
 
     private void openProcessOrderFrame(ActionEvent e) {
+    	/// Create a frame to display the process order panel
         JFrame processOrderFrame = new JFrame("Process Order");
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -688,16 +702,18 @@ public class UIManager extends JFrame {
  	public class OrderItem {
  		private String productId;
  		private int quantity;
- 		
+ 		// Constructor
  		public OrderItem(String productId, int quantity) {
  			this.productId = productId;
  			this.quantity = quantity;
  		}
  		
+ 		// Getters
  		public String getProductId() {
  			return productId;
  		}
  		
+ 
  		public int getQuantity() {
  			return quantity;
  		}

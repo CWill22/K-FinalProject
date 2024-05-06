@@ -52,9 +52,7 @@ public class Database {
                     int quantity = Integer.parseInt(element.getElementsByTagName("QuantityInStock").item(0).getTextContent());
 
                     // Create a new product, using the subclass contructer for its type,  and add it to the store
-                   //Product product = new Product(name, brand, color, size, material, gender, price, quantity);
-                    //Product product = (name, brand, price,quantity, size, color, material, gender)
-                    
+                  
                     if(type.equals("Crewneck")) {
                         Product product = new Crewneck(name, Brands.valueOf(brand), price, quantity, Size.valueOf(size), Color.valueOf(color),
                         Material.valueOf(material), Gender.valueOf(gender));

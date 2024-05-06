@@ -2,6 +2,7 @@ package store;
 
 public class Short extends Product {
 
+	// Constructor
     public Short(String name, Brands brand, double price, int quantity, Size size, Color color, Material material, Gender gender) {
         super(name, brand, price, quantity, size, color, material, gender);
     }

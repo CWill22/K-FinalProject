@@ -1,5 +1,6 @@
 package store;
 
+// Enum to represent the different sizes
 public enum Size {
 	XS,
     S,
