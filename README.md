@@ -1,0 +1,5 @@
+Alasdair Orr - 49ersMcAfree Will Curry - CWill22 Braeden Penrod - oRackzyy Ethan Darling - edar115
+
+For our final project, our group developed a Mizzou clothing management system using Java, focusing on Object-Oriented Programming principles, design patterns, and best practices. The system includes features for managing inventory, adding new products, editing existing products, and processing orders for sweatshirts, t-shirts, crewnecks, shorts, sweatpants, and socks from various brands. The project is structured into several Java files organized within the 'store' package. Each file defines classes, enums, or interfaces and others related to various aspects of the clothing management system, such as product types, database management, and user interface handling.
+
+Each team member was tasked with implementing at least five core features, developing comprehensive test cases, and sequence diagrams, and contributing to the class diagram. Braedon was tasked with UI development, Will with user authentication, Ethan with backend logic, and Alasdair with database & inventory management. The project adheres to SOLID principles and unitizes version control with Git.
