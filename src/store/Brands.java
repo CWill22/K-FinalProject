@@ -1,5 +1,6 @@
 package store;
 
+// Enum to represent the different brands
 public enum Brands {
 	NIKE,
     ADIDAS,

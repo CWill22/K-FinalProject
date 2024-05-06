@@ -1,6 +1,7 @@
 package store;
 public class TShirt extends Product {
 
+	// Constructor
     public TShirt(String name, Brands brand, double price, int quantity, Size size, Color color, Material material, Gender gender) {
         super(name, brand, price, quantity, size, color, material, gender);
     }

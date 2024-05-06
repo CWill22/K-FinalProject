@@ -1,5 +1,7 @@
 package store;
 
+
+// Class to represent the Crewneck product
 public class Crewneck extends Product {
 
     public Crewneck(String name, Brands brand, double price, int quantity, Size size, Color color, Material material, Gender gender) {

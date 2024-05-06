@@ -1,6 +1,7 @@
 package store;
 
 public abstract class Product {
+	// Attributes of the Product class
     protected String name;
     protected Brands brand;
     protected double price;
@@ -10,6 +11,7 @@ public abstract class Product {
     protected Gender gender;
     protected Material material;
 
+    // Constructor for the Product class
     public Product(String name, Brands brand, double price, int quantity, Size size, Color color, Material material, Gender gender) {
         this.name = name;
         this.brand = brand;
@@ -20,7 +22,8 @@ public abstract class Product {
         this.material = material;
         this.gender = gender;
     }
-
+    
+    // Abstract method to display the details of the product
     public abstract void displayDetails();
 
     // Getters and setters for the attributes

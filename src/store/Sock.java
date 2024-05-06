@@ -2,6 +2,7 @@ package store;
 
 public class Sock extends Product {
 
+	// Constructor
     public Sock(String name, Brands brand, double price, int quantity, Size size, Color color, Material material, Gender gender) {
         super(name, brand, price, quantity, size, color, material, gender);
     }
